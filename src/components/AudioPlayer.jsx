@@ -1,13 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function AudioPlayer({ audioSrc, songTitle, songArtist }) {
+function AudioPlayer({ audioSrc, audioTitle, audioArtist }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const audioRef = useRef(new Audio(audioSrc));
+    const audioRef = useRef(null);
 
     useEffect(() => {
+        audioRef.current = new Audio(audioSrc);
         const audio = audioRef.current;
         audio.loop = true; // Enable looping
 
@@ -35,7 +36,7 @@ function AudioPlayer({ audioSrc, songTitle, songArtist }) {
             audio.removeEventListener('timeupdate', updateCurrentTime);
             audio.removeEventListener('loadedmetadata', setAudioData);
         };
-    }, [isPlaying]);
+    }, [audioSrc, isPlaying]);
 
     const togglePlayPause = () => {
         setIsPlaying(!isPlaying);
@@ -67,8 +68,8 @@ function AudioPlayer({ audioSrc, songTitle, songArtist }) {
                 <div className="flex-grow">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex flex-col">
-                            <div className="text-white text-base font-semibold">{songTitle}</div>
-                            <div className="text-gray-500 text-sm">{songArtist}</div>
+                            <div className="text-white text-base font-semibold">{audioTitle}</div>
+                            <div className="text-gray-500 text-sm">{audioArtist}</div>
                         </div>
                         <button onClick={togglePlayPause} className="w-8 h-8 items-center justify-center flex rounded-full bg-gray-500" style={{ border: '1px #ffffff solid' }}>
                             {isPlaying ? PauseIcon : PlayIcon}
@@ -94,10 +95,11 @@ function AudioPlayer({ audioSrc, songTitle, songArtist }) {
     );
 }
 
+
 AudioPlayer.propTypes = {
     audioSrc: PropTypes.string.isRequired,
-    songTitle: PropTypes.string.isRequired,
-    songArtist: PropTypes.string.isRequired,
+    audioTitle: PropTypes.string.isRequired,
+    audioArtist: PropTypes.string.isRequired,
 };
 
 export default AudioPlayer;

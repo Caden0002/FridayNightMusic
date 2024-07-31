@@ -1,10 +1,10 @@
-import Page1 from "./components/Page1.jsx";
+import Hero from "./components/Hero.jsx";
 
 
 export default function App() {
     return (
         <>
-            <Page1 />
+            <Hero />
 
 
         </>
