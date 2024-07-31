@@ -5,10 +5,9 @@ function AudioPlayer({ audioSrc, audioTitle, audioArtist }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const audioRef = useRef(null);
+    const audioRef = useRef(new Audio(audioSrc));
 
     useEffect(() => {
-        audioRef.current = new Audio(audioSrc);
         const audio = audioRef.current;
         audio.loop = true; // Enable looping
 
@@ -36,10 +35,23 @@ function AudioPlayer({ audioSrc, audioTitle, audioArtist }) {
             audio.removeEventListener('timeupdate', updateCurrentTime);
             audio.removeEventListener('loadedmetadata', setAudioData);
         };
-    }, [audioSrc, isPlaying]);
+    }, [isPlaying]);
+
+    useEffect(() => {
+        const audio = audioRef.current;
+        audio.src = audioSrc; // Update audio source if it changes
+        audio.load();
+        setCurrentTime(0); // Reset current time when source changes
+
+        // Cleanup on unmount or when `audioSrc` changes
+        return () => {
+            audio.pause();
+            audio.src = '';
+        };
+    }, [audioSrc]);
 
     const togglePlayPause = () => {
-        setIsPlaying(!isPlaying);
+        setIsPlaying(prev => !prev);
     };
 
     const handleProgressChange = (event) => {
@@ -94,7 +106,6 @@ function AudioPlayer({ audioSrc, audioTitle, audioArtist }) {
         </div>
     );
 }
-
 
 AudioPlayer.propTypes = {
     audioSrc: PropTypes.string.isRequired,
