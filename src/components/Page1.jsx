@@ -11,6 +11,7 @@ function Page1(props) {
                 autoPlay
                 muted
                 loop
+                playsInline                
                 src={Background}
                 className="absolute inset-0 w-full h-full object-cover"
                 style={{ zIndex: -1 }}
