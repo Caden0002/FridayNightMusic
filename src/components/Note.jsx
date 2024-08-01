@@ -34,7 +34,7 @@ function Note() {
                         <p className="text-xs text-white">
                             Turn off sleep mode,<br />
                             Fullscreen your browser,<br />
-                            And enjoy the vibe.
+                            And enjoy the vibes.
                         </p>
                     </motion.div>
                 )}
