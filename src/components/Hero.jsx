@@ -1,18 +1,16 @@
-import { useState } from 'react';
 import Yamiyo from '/Yamiyo.mp3';
-import Background from '/BackgroundVideo.mp4';
+import Background from '/BackgroundStudy.gif';
 import AudioPlayer from './AudioPlayer.jsx';
+import Note from './Note.jsx';
 
 function Hero(props) {
+
     return (
-        <div className={`relative min-h-screen flex`}>
-            {/* Background Video */}
-            <video
-                autoPlay
-                muted
-                loop
-                playsInline                
+        <div className="relative h-screen flex">
+            {/* Background GIF */}
+            <img
                 src={Background}
+                alt="Background"
                 className="absolute inset-0 w-full h-full object-cover"
                 style={{ zIndex: -1 }}
             />
@@ -22,7 +20,13 @@ function Hero(props) {
                 audioSrc={Yamiyo}
                 audioTitle='Yamiyo Lo-fi'
                 audioArtist='Kijugo'
+                themeColor='#d15f50'
+                audioTheme='STUDY'
+
             />
+
+            {/* Note Component */}
+            <Note />
         </div>
     );
 }
