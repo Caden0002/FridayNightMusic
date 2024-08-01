@@ -13,7 +13,6 @@ function HeroFirstNight(props) {
                 style={{ zIndex: -1 }}
             />
 
-
             {/* Audio Player */}
             <AudioPlayer
                 audioSrc='/FirstNight/AudioFirstNight.mp3'
