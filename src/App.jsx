@@ -9,7 +9,7 @@ const hostname = window.location.hostname;
 const port = window.location.port;
     return (
    <>
-        {hostname === 'localhost' && port === '5173' && <HeroWork />}
+        {hostname === 'localhost' && port === '5173' && <HeroStudy />}
         {hostname === 'study.musicplayer.cloud' && <HeroStudy />}
         {hostname === 'firstnight.musicplayer.cloud' && <HeroFirstNight />}
         {hostname === 'work.musicplayer.cloud' && <HeroWork />}
