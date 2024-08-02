@@ -45,7 +45,6 @@ const containerVariants = {
     hidden: {},
     visible: {
         transition: {
-          
             staggerChildren: 0.1, // Adjust delay for stagger effect
         }
     }
@@ -58,16 +57,12 @@ function Menu() {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    
-
     return (
         <div>
             {/* Burger Icon (Replaced with Image) */}
             <div
                 className="fixed top-4 right-4 z-30 cursor-pointer text-white"
                 onClick={toggleMenu}
-                
-                
             >
                 <img src={MenuLogo} alt="Menu" width={50} height={50} /> {/* Use the image as a button */}
             </div>
@@ -91,7 +86,6 @@ function Menu() {
                         >
                             <motion.a
                                 href="https://study.musicplayer.cloud"
-                                target="_blank"
                                 rel="noopener noreferrer"
                                 className=""
                                 variants={linkVariants}
@@ -100,7 +94,6 @@ function Menu() {
                             </motion.a>
                             <motion.a
                                 href="https://work.musicplayer.cloud"
-                                target="_blank"
                                 rel="noopener noreferrer"
                                 className=""
                                 variants={linkVariants}
@@ -109,7 +102,6 @@ function Menu() {
                             </motion.a>
                             <motion.a
                                 href="https://firstnight.musicplayer.cloud"
-                                target="_blank"
                                 rel="noopener noreferrer"
                                 className=""
                                 variants={linkVariants}
