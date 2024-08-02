@@ -84,7 +84,7 @@ function Menu() {
                         exit="exit"
                     >
                         <motion.div
-                            className="flex flex-col items-center space-y-6 mt-24 text-white text-base font-semibold"
+                            className="flex flex-col items-center space-y-6 mt-24 text-white text-md font-bold"
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
@@ -96,7 +96,7 @@ function Menu() {
                                 className=""
                                 variants={linkVariants}
                             >
-                                Study
+                                STUDY
                             </motion.a>
                             <motion.a
                                 href="https://work.musicplayer.cloud"
@@ -105,7 +105,7 @@ function Menu() {
                                 className=""
                                 variants={linkVariants}
                             >
-                                Work
+                                WORK
                             </motion.a>
                             <motion.a
                                 href="https://firstnight.musicplayer.cloud"
@@ -114,7 +114,7 @@ function Menu() {
                                 className=""
                                 variants={linkVariants}
                             >
-                                First Night
+                                FIRST NIGHT
                             </motion.a>
                         </motion.div>
                     </motion.div>
