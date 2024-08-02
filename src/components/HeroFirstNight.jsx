@@ -1,5 +1,7 @@
 import AudioPlayer from './AudioPlayer.jsx';
 import Note from './Note.jsx';
+import Menu from './Menu.jsx'; 
+
 
 function HeroFirstNight(props) {
 
@@ -25,6 +27,9 @@ function HeroFirstNight(props) {
 
             {/* Note Component */}
             <Note />
+
+            {/* Menu Component */}
+            <Menu /> 
         </div>
     );
 }

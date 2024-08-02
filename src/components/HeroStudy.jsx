@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import AudioPlayer from './AudioPlayer.jsx';
 import Note from './Note.jsx';
-import Menu from './Menu.jsx'; // Import the Menu component
+import Menu from './Menu.jsx'; 
 
 function HeroStudy(props) {
     // Hook to get the window size
@@ -48,7 +48,7 @@ function HeroStudy(props) {
             <Note />
 
             {/* Menu Component */}
-            <Menu /> {/* Add the Menu component */}
+            <Menu /> 
         </div>
     );
 }

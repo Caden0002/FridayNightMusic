@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import AudioPlayer from './AudioPlayer.jsx';
 import Note from './Note.jsx';
+import Menu from './Menu.jsx'; 
+
 
 function HeroWork(props) {
     // Hook to get the window size
@@ -45,6 +47,9 @@ const objectPosition = windowSize.width < 540 ? '20% 0' : 'left';
 
             {/* Note Component */}
             <Note />
+
+            {/* Menu Component */}
+            <Menu /> 
         </div>
     );
 }
