@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AudioPlayer from './AudioPlayer.jsx';
 import Note from './Note.jsx';
+import Menu from './Menu.jsx'; // Import the Menu component
 
 function HeroStudy(props) {
     // Hook to get the window size
@@ -22,7 +23,7 @@ function HeroStudy(props) {
     }, []);
 
     // Determine the object position based on screen size
-    const objectPosition = windowSize.width < 540 ? 'left ' : 'center'; // Adjusted position
+    const objectPosition = windowSize.width < 540 ? 'left 20%' : 'center'; // Adjusted position
 
     return (
         <div className="relative h-screen flex">
@@ -45,6 +46,9 @@ function HeroStudy(props) {
 
             {/* Note Component */}
             <Note />
+
+            {/* Menu Component */}
+            <Menu /> {/* Add the Menu component */}
         </div>
     );
 }
