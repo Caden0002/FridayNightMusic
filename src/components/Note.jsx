@@ -32,14 +32,14 @@ function Note() {
                         animate={{ opacity: 1, scale: 1, y: -50 }}
                         exit={{ opacity: 0, scale: 0.5, y: 0 }}
                         transition={{ duration: 0.5, type: 'spring', stiffness: 200 }}
-                        className="absolute bottom-4 right-1 mb-2 p-3 shadow-lg w-44 bg-[#000]/[.5] rounded"
+                        className="absolute bottom-4 right-1 mb-2 p-3 shadow-lg w-56 bg-[#000]/[.5] rounded"
                         style={{ boxShadow: "rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset" }}
                     >
-                        <p className="text-xs text-white">
-                            Turn off sleep mode,<br />
-                            Fullscreen the browser,<br />
-                            And vibe along.
-                        </p>
+<p className="text-xs text-white">
+  Deactivate Sleep Mode (★ω★)<br />
+  Turn on Fullscreen (っ◕‿◕)っ<br />
+  Sync with the Vibes ^__^
+</p>
                     </motion.div>
                 )}
             </AnimatePresence>
