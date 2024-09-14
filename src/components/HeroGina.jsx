@@ -24,7 +24,7 @@ function HeroGina(props) {
     }, []);
 
     // Determine the object position based on screen size
-    const objectPosition = windowSize.width < 540 ? 'left' : 'left';
+    const objectPosition = windowSize.width < 540 ? '15% 85%' : 'left';
 
     return (
         <div className="relative h-screen flex">
