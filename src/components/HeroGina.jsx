@@ -9,11 +9,12 @@ function HeroGina(props) {
             <video
                 src='/Gina/BackgroundGina.mp4'
                 alt="Background"
-                className="absolute inset-0 w-full h-full object-left"
+                className="absolute inset-0 w-full h-full object-full"
                 style={{ zIndex: -1 }}
                 autoPlay
                 loop
                 muted
+                playsInline
             />
 
             {/* Audio Player */}
