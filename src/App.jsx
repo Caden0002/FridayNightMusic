@@ -20,6 +20,7 @@ export default function App() {
       {hostname === 'study.musicplayer.cloud' && <HeroStudy />}
       {hostname === 'firstnight.musicplayer.cloud' && <HeroFirstNight />}
       {hostname === 'work.musicplayer.cloud' && <HeroWork />}
+      {hostname === 'gina.musicplayer.cloud' && <HeroGina />}
     </>
   );
 }

@@ -108,6 +108,14 @@ function Menu() {
                             >
                                 FIRST NIGHT
                             </motion.a>
+                            <motion.a
+                                href="https://gina.musicplayer.cloud"
+                                rel="noopener noreferrer"
+                                className=""
+                                variants={linkVariants}
+                            >
+                                GINA
+                            </motion.a>
                         </motion.div>
                     </motion.div>
                 )}
