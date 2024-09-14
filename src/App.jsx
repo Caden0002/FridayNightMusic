@@ -18,7 +18,7 @@ export default function App() {
 
   return (
     <>
-      {hostname === 'localhost' && port === '5173' && <HeroGina />}
+      {hostname === 'localhost' && port === '5173' && <HeroStudy />}
       {hostname === 'study.musicplayer.cloud' && <HeroStudy />}
       {hostname === 'firstnight.musicplayer.cloud' && <HeroFirstNight />}
       {hostname === 'work.musicplayer.cloud' && <HeroWork />}
