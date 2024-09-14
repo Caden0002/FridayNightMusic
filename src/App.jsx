@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import HeroStudy from './components/HeroStudy.jsx';
 import HeroFirstNight from './components/HeroFirstNight.jsx';
 import HeroWork from './components/HeroWork.jsx';
+import HeroGina from './components/HeroGina.jsx';
+
 import ReactGA from 'react-ga4';
 
 export default function App() {
