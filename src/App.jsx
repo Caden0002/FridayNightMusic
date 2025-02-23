@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import HeroStudy from "./components/HeroStudy.jsx";
-// import HeroFirstNight from "./components/HeroFirstNight.jsx";
+import HeroFirstNight from "./components/HeroFirstNight.jsx";
 import HeroWork from "./components/HeroWork.jsx";
 import HeroGina from "./components/HeroGina.jsx";
 import HeroGardening from "./components/HeroGardening.jsx";
@@ -10,6 +10,7 @@ import HeroCafe from "./components/HeroCafe.jsx";
 import HeroSpace from "./components/HeroSpace.jsx";
 import HeroRain from "./components/HeroRain.jsx";
 import HeroSunset from "./components/HeroSunset.jsx";
+import HeroAmanda from "./components/HeroAmanda.jsx";
 
 import ReactGA from "react-ga4";
 
@@ -29,7 +30,7 @@ export default function App() {
     <>
       <TrackPageViews />
       <Routes>
-        <Route path="/" element={<HeroGina />} />
+        <Route path="/" element={<HeroStudy />} />
         <Route path="/study" element={<HeroStudy />} />
         {/* <Route path="/firstnight" element={<HeroFirstNight />} /> */}
         <Route path="/work" element={<HeroWork />} />
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/space" element={<HeroSpace />} />
         <Route path="/rain" element={<HeroRain />} />
         <Route path="/sunset" element={<HeroSunset />} />
+        <Route path="/amanda" element={<HeroAmanda />} />
       </Routes>
     </>
   );

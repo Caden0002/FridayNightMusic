@@ -3,7 +3,7 @@ import AudioPlayer from "./AudioPlayer.jsx";
 import Note from "./Note.jsx";
 import Menu from "./Menu.jsx";
 
-function HeroGina(props) {
+function HeroAmanda(props) {
   // State to hold the window size
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
@@ -30,7 +30,7 @@ function HeroGina(props) {
     <div className="relative min-h-screen h-[100dvh] flex">
       {/* Background Video */}
       <video
-        src="/Gina/BackgroundGina.mp4"
+        src="/Amanda/BackgroundAmanda.mp4"
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover"
         style={{
@@ -45,11 +45,11 @@ function HeroGina(props) {
 
       {/* Audio Player */}
       <AudioPlayer
-        audioSrc="/Gina/AudioGina.mp3"
-        audioTitle="In A Manner Of Speaking"
-        audioArtist="Nouvelle Vague"
-        themeColor="#721A07"
-        audioTheme="Gina"
+        audioSrc="/Amanda/AudioAmanda.mp3"
+        audioTitle="Always With Me (Lo-fi)"
+        audioArtist="Shoyo"
+        themeColor="#c097cc"
+        audioTheme="Amanda"
       />
 
       {/* Note Component */}
@@ -61,4 +61,4 @@ function HeroGina(props) {
   );
 }
 
-export default HeroGina;
+export default HeroAmanda;
