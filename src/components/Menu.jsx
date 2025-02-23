@@ -9,7 +9,7 @@ function Menu() {
   const menuRef = useRef(null); // Ref for detecting outside clicks
   const navigate = useNavigate();
 
-  const validRoutes = ["gina", "amanda"];
+  const validRoutes = ["gina", "amanda", "amandat"];
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -93,6 +93,9 @@ function Menu() {
             </a>
             <a href="/rain" target="_blank" rel="noopener noreferrer">
               Rainy Reverie
+            </a>
+            <a href="/sunset" target="_blank" rel="noopener noreferrer">
+              Sunset Mellow
             </a>
             <a href="/sunset" target="_blank" rel="noopener noreferrer">
               Sunset Mellow

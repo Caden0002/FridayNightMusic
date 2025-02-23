@@ -11,6 +11,7 @@ import HeroSpace from "./components/HeroSpace.jsx";
 import HeroRain from "./components/HeroRain.jsx";
 import HeroSunset from "./components/HeroSunset.jsx";
 import HeroAmanda from "./components/HeroAmanda.jsx";
+import HeroAmandaT from "./components/HeroAmandaT.jsx";
 
 import ReactGA from "react-ga4";
 
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/rain" element={<HeroRain />} />
         <Route path="/sunset" element={<HeroSunset />} />
         <Route path="/amanda" element={<HeroAmanda />} />
+        <Route path="/amandat" element={<HeroAmandaT />} />
       </Routes>
     </>
   );
