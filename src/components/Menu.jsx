@@ -97,9 +97,6 @@ function Menu() {
             <a href="/sunset" target="_blank" rel="noopener noreferrer">
               Sunset Mellow
             </a>
-            <a href="/sunset" target="_blank" rel="noopener noreferrer">
-              Sunset Mellow
-            </a>
 
             {/* Custom Route Input */}
             <div className="w-full flex flex-col items-center">
