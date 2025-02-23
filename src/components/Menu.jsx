@@ -88,7 +88,7 @@ function Menu() {
             </div>
             <div>
               <a
-                href="/space"
+                href="/rain"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={closeMenu}
