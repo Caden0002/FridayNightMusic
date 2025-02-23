@@ -41,7 +41,7 @@ function HeroStudy(props) {
         audioTitle="Yamiyo Lo-fi"
         audioArtist="Kijugo"
         themeColor="#d15f50"
-        audioTheme="STUDY MODE"
+        audioTheme="Study Mode"
       />
 
       {/* Note Component */}

@@ -19,7 +19,7 @@ function HeroCafe(props) {
         audioTitle="this is for you"
         audioArtist="LuKremBo"
         themeColor="#f1c276"
-        audioTheme="CAFÉ HUSTLE"
+        audioTheme="Cafe Hustle"
       />
 
       {/* Note Component */}

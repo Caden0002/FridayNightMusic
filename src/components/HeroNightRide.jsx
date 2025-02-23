@@ -19,7 +19,7 @@ function HeroNightRide(props) {
         audioTitle="Here With Me"
         audioArtist="d4vd"
         themeColor="#ad86c7"
-        audioTheme="NIGHT RIDE"
+        audioTheme="Night Ride"
       />
 
       {/* Note Component */}
