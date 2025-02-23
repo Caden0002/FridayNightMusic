@@ -17,7 +17,7 @@ function HeroCafe(props) {
       <AudioPlayer
         audioSrc="/Cafe/AudioCafe.mp3"
         audioTitle="this is for you"
-        audioArtist="lukrembo"
+        audioArtist="LuKremBo"
         themeColor="#f1c276"
         audioTheme="CAFÉ HUSTLE"
       />
