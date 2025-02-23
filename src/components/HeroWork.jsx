@@ -41,7 +41,7 @@ function HeroWork(props) {
         audioTitle="Show Me How"
         audioArtist="Men I Trust"
         themeColor="#e5d6ae"
-        audioTheme="0530PM"
+        audioTheme="WORK FLOW"
       />
 
       {/* Note Component */}

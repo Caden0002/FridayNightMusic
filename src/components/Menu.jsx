@@ -33,7 +33,7 @@ function Menu() {
                 rel="noopener noreferrer"
                 onClick={closeMenu}
               >
-                STUDY
+                Study Mode
               </a>
             </div>
             <div>
@@ -43,7 +43,17 @@ function Menu() {
                 rel="noopener noreferrer"
                 onClick={closeMenu}
               >
-                WORK
+                Work Flow
+              </a>
+            </div>
+            <div>
+              <a
+                href="/nightride"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+              >
+                Night Ride
               </a>
             </div>
             <div>
@@ -53,10 +63,50 @@ function Menu() {
                 rel="noopener noreferrer"
                 onClick={closeMenu}
               >
-                GARDENING
+                Gardening
               </a>
             </div>
             <div>
+              <a
+                href="/cafe"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+              >
+                Café Hustle
+              </a>
+            </div>
+            <div>
+              <a
+                href="/space"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+              >
+                Alone in Space
+              </a>
+            </div>
+            <div>
+              <a
+                href="/space"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+              >
+                Rainy Reverie
+              </a>
+            </div>
+            <div>
+              <a
+                href="/sunset"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+              >
+                Sunset Mellow
+              </a>
+            </div>
+            {/* <div>
               <a
                 href="/gina"
                 target="_blank"
@@ -65,7 +115,7 @@ function Menu() {
               >
                 GINA
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
