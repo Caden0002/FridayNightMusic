@@ -10,7 +10,10 @@ function HeroAmandaT(props) {
         src="/AmandaT/BackgroundAmandaT.gif"
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ zIndex: -1 }}
+        style={{
+          zIndex: -1,
+          objectPosition: "center bottom", // Moves the image upwards to reveal the bottom
+        }}
       />
 
       {/* Audio Player */}
@@ -33,4 +36,5 @@ function HeroAmandaT(props) {
 
 export default HeroAmandaT;
 
+// https://www.pinterest.com/pin/7036943162032386/
 // https://www.youtube.com/watch?v=aFfEHBH5e_0
