@@ -127,7 +127,7 @@ export const themes = {
         audioSrc: "/Debit/AudioDebit.mp3",
         audioTitle: "跳楼机",
         audioArtist: "LBI利比",
-        themeColor: "#dfc0ad",
+        themeColor: "#a0d8ee",
         audioTheme: "Debit",
         objectPositionSm: "30% 50%",
         objectPositionLg: "left",
