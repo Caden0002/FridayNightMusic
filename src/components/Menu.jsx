@@ -1,15 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuLogo from "/MenuLogo.gif";
+import { themes } from "./theme.js"; // Import the themes
 
 function Menu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [customInput, setCustomInput] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const menuRef = useRef(null); // Ref for detecting outside clicks
+  const menuRef = useRef(null);
   const navigate = useNavigate();
 
-  const validRoutes = ["gina", "amanda", "amandat"];
+  // Get theme names dynamically from themes.js
+  const validRoutes = Object.keys(themes).filter(
+    (theme) => !themes[theme].hidden // Only for displaying in the menu
+  );
+
+  const searchableRoutes = Object.keys(themes); // Allow searching all themes, including hidden ones
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -22,7 +28,7 @@ function Menu() {
   const handleCustomRoute = () => {
     const formattedInput = customInput.toLowerCase().trim();
 
-    if (validRoutes.includes(formattedInput)) {
+    if (searchableRoutes.includes(formattedInput)) {
       navigate(`/${formattedInput}`);
       setErrorMessage("");
       closeMenu();
@@ -73,30 +79,17 @@ function Menu() {
           className="fixed top-0 right-0 bottom-0 w-[300px] bg-[#000]/70 rounded-tl-lg rounded-bl-lg shadow-lg transition-transform duration-300 ease-in-out transform translate-x-0 p-6"
         >
           <div className="flex flex-col items-center space-y-6 mt-12 text-white text-md font-bold">
-            <a href="/study" target="_blank" rel="noopener noreferrer">
-              Study Mode
-            </a>
-            <a href="/work" target="_blank" rel="noopener noreferrer">
-              Work Flow
-            </a>
-            <a href="/nightride" target="_blank" rel="noopener noreferrer">
-              Night Ride
-            </a>
-            <a href="/gardening" target="_blank" rel="noopener noreferrer">
-              Gardening
-            </a>
-            <a href="/cafe" target="_blank" rel="noopener noreferrer">
-              Café Hustle
-            </a>
-            <a href="/space" target="_blank" rel="noopener noreferrer">
-              Alone in Space
-            </a>
-            <a href="/rain" target="_blank" rel="noopener noreferrer">
-              Rainy Reverie
-            </a>
-            <a href="/sunset" target="_blank" rel="noopener noreferrer">
-              Sunset Mellow
-            </a>
+            {/* Dynamically Generate Menu Items, Excluding Hidden Themes */}
+            {validRoutes.map((theme) => (
+              <a
+                key={theme}
+                href={`/${theme}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {themes[theme].audioTheme}
+              </a>
+            ))}
 
             {/* Custom Route Input */}
             <div className="w-full flex flex-col items-center">
