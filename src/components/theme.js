@@ -122,4 +122,16 @@ export const themes = {
         objectPositionSm: "50% 50%",
         objectPositionLg: "center",
     },
+    debit: {
+        bgImage: "/Debit/BackgroundDebit.gif",
+        audioSrc: "/Debit/AudioDebit.mp3",
+        audioTitle: "跳楼机",
+        audioArtist: "LBI利比",
+        themeColor: "#dfc0ad",
+        audioTheme: "Debit",
+        objectPositionSm: "30% 50%",
+        objectPositionLg: "left",
+        hidden: true,
+
+    },
 };

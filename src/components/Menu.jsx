@@ -76,23 +76,11 @@ function Menu() {
       {isMenuOpen && (
         <div
           ref={menuRef}
-          className="fixed top-0 right-0 bottom-0 w-[300px] bg-[#000]/70 rounded-tl-lg rounded-bl-lg shadow-lg transition-transform duration-300 ease-in-out transform translate-x-0 p-6"
+          className="fixed top-0 right-0 bottom-0 w-[300px] bg-[#000]/70 rounded-tl-lg rounded-bl-lg shadow-lg transition-transform duration-300 ease-in-out transform translate-x-0 p-6 overflow-y-auto max-h-screen"
         >
           <div className="flex flex-col items-center space-y-6 mt-12 text-white text-md font-bold">
-            {/* Dynamically Generate Menu Items, Excluding Hidden Themes */}
-            {validRoutes.map((theme) => (
-              <a
-                key={theme}
-                href={`/${theme}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {themes[theme].audioTheme}
-              </a>
-            ))}
-
             {/* Custom Route Input */}
-            <div className="w-full flex flex-col items-center">
+            <div className="w-full flex flex-col items-center mb-4">
               <div className="relative w-full">
                 <input
                   type="text"
@@ -113,6 +101,17 @@ function Menu() {
                 <p className="text-red-400 text-sm mt-2">{errorMessage}</p>
               )}
             </div>
+            {/* Dynamically Generate Menu Items, Excluding Hidden Themes */}
+            {validRoutes.map((theme) => (
+              <a
+                key={theme}
+                href={`/${theme}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {themes[theme].audioTheme}
+              </a>
+            ))}
           </div>
         </div>
       )}
