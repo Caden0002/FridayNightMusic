@@ -1,19 +1,15 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Hero from "./components/Hero.jsx"; // Import dynamic Hero component
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Hero from "./components/Hero.jsx"; // Dynamic Hero component
+import Landing from "./components/Landing.jsx"; // New Landing Page
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Default route redirects to /work */}
-        <Route path="/" element={<Navigate replace to="/work" />} />
+        {/* Default Route - Landing Page */}
+        <Route path="/" element={<Landing />} />
 
-        {/* Dynamic Route */}
+        {/* Dynamic Route for music themes */}
         <Route path="/:themeName" element={<Hero />} />
       </Routes>
     </Router>
