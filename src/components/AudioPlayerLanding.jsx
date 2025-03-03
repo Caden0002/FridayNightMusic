@@ -10,7 +10,7 @@ import RepeatIcon from "/PlayerButtons/repeat.svg";
 import ShuffleIcon from "/PlayerButtons/shuffle.svg";
 import PositionIcon from "/PlayerButtons/position.svg";
 
-function AudioPlayerLanding() {
+function AudioPlayerLanding({ className }) {
   // Extract audio tracks from `themes`, excluding hidden ones
   const availableTracks = Object.values(themes).filter(
     (theme) => !theme.hidden
@@ -197,125 +197,123 @@ function AudioPlayerLanding() {
   };
 
   return (
-    <div className="fixed z-50">
-      <div
-        className="w-[330px] h-[445px] bg-[#000]/[.7] rounded-[1rem] relative flex flex-col items-center justify-center px-4 pt-4 pb-6"
-        style={{
-          boxShadow: "rgba(255, 255, 255, 0.1) 0px 0px 10px 2px",
-        }}
-      >
-        {/* Song Info */}
-        <div className="w-auto h-full text-center">
-          {/* Display bgImage or bgVideo above audioTheme */}
-          {currentTrack.bgImage ? (
-            <img
-              src={currentTrack.bgImage}
-              alt="Background"
-              className="mx-auto mb-4 w-[300px] h-[225px] rounded-[0.25rem]"
-              style={{}}
-            />
-          ) : currentTrack.bgVideo ? (
-            <video
-              src={currentTrack.bgVideo}
-              className="mx-auto mb-1 w-[300px] h-[225px] rounded-[0.25rem]"
-              style={{}}
-              muted
-              loop
-              playsInline
-            />
-          ) : null}
+    <div
+      className="w-[330px] h-[445px] bg-[#000]/[.7] rounded-[1rem] relative flex flex-col px-4 pt-4 pb-6"
+      style={{
+        boxShadow: "rgba(255, 255, 255, 0.1) 0px 0px 10px 2px",
+      }}
+    >
+      {/* Song Info */}
+      <div className="w-auto h-full text-center">
+        {/* Display bgImage or bgVideo above audioTheme */}
+        {currentTrack.bgImage ? (
+          <img
+            src={currentTrack.bgImage}
+            alt="Background"
+            className="mx-auto mb-4 w-[300px] h-[225px] rounded-[0.25rem]"
+            style={{}}
+          />
+        ) : currentTrack.bgVideo ? (
+          <video
+            src={currentTrack.bgVideo}
+            className="mx-auto mb-1 w-[300px] h-[225px] rounded-[0.25rem]"
+            style={{}}
+            muted
+            loop
+            playsInline
+          />
+        ) : null}
+        <div
+          className="text-lg font-bold"
+          style={{ color: currentTrack.themeColor }}
+        >
+          {currentTrack.audioTheme}
+        </div>
+        <div className="text-white text-base font-semibold">
+          {currentTrack.audioTitle}
+        </div>
+        <div className="text-gray-500 text-sm mb-2">
+          {currentTrack.audioArtist}
+        </div>
+      </div>
+
+      {/* Progress Bar with Time Labels Using Flex */}
+      <div className="w-full mt-2 mb-4 flex flex-col">
+        {/* Time Labels */}
+        <div
+          className="flex justify-between text-xs mb-1"
+          style={{ color: currentTrack.themeColor }}
+        >
+          <span>{formatTime(currentTime)}</span>
+          <span>-{formatTime(duration - currentTime)}</span>
+        </div>
+        {/* Progress Bar */}
+        <div className="relative w-full h-2 bg-gray-700 rounded-full overflow-hidden mt-2">
           <div
-            className="text-lg font-bold"
-            style={{ color: currentTrack.themeColor }}
-          >
-            {currentTrack.audioTheme}
-          </div>
-          <div className="text-white text-base font-semibold">
-            {currentTrack.audioTitle}
-          </div>
-          <div className="text-gray-500 text-sm mb-2">
-            {currentTrack.audioArtist}
-          </div>
-        </div>
-
-        {/* Progress Bar with Time Labels Using Flex */}
-        <div className="w-full mt-2 mb-4 flex flex-col">
-          {/* Time Labels */}
-          <div
-            className="flex justify-between text-xs mb-1"
-            style={{ color: currentTrack.themeColor }}
-          >
-            <span>{formatTime(currentTime)}</span>
-            <span>-{formatTime(duration - currentTime)}</span>
-          </div>
-          {/* Progress Bar */}
-          <div className="relative w-full h-2 bg-gray-700 rounded-full overflow-hidden mt-2">
-            <div
-              className="absolute top-0 left-0 h-full transition-all duration-300"
-              style={{
-                backgroundColor: currentTrack.themeColor,
-                width: `${(currentTime / (duration || 1)) * 100}%`,
-                minWidth: "2px",
-              }}
-            />
-            <input
-              type="range"
-              min="0"
-              max={duration || 1}
-              value={currentTime}
-              onChange={handleProgressChange}
-              className="absolute top-0 left-0 w-full h-full opacity-0 z-10"
-            />
-          </div>
-        </div>
-
-        {/* Controls */}
-        <div className="flex items-center justify-center space-x-4">
-          {/* Shuffle */}
-          <button
-            onClick={toggleShuffle}
-            className="w-4 h-4"
+            className="absolute top-0 left-0 h-full transition-all duration-300"
             style={{
-              filter: isShuffling
-                ? `drop-shadow(0 0 5px ${currentTrack.themeColor})`
-                : "none",
+              backgroundColor: currentTrack.themeColor,
+              width: `${(currentTime / (duration || 1)) * 100}%`,
+              minWidth: "2px",
             }}
-          >
-            <img src={ShuffleIcon} alt="Shuffle" className="w-4 h-4" />
-          </button>
-
-          {/* Previous */}
-          <button onClick={prevTrack} className="w-6 h-6">
-            <img src={PrevIcon} alt="Previous" className="w-6 h-6" />
-          </button>
-
-          {/* Play/Pause */}
-          <button onClick={togglePlayPause} className="w-6 h-6">
-            <img
-              src={isPlaying ? PauseIcon : PlayIcon}
-              alt="Play/Pause"
-              className="w-6 h-6"
-            />
-          </button>
-
-          {/* Next */}
-          <button onClick={nextTrack} className="w-6 h-6">
-            <img src={NextIcon} alt="Next" className="w-6 h-6" />
-          </button>
-
-          {/* Repeat */}
-          <button
-            onClick={toggleLoop}
-            className="w-4 h-4"
-            style={{
-              filter: isLooping
-                ? `drop-shadow(0 0 5px ${currentTrack.themeColor})`
-                : "none",
-            }}
-          >
-            <img src={RepeatIcon} alt="Repeat" className="w-4 h-4" />
-          </button>
+          />
+          <input
+            type="range"
+            min="0"
+            max={duration || 1}
+            value={currentTime}
+            onChange={handleProgressChange}
+            className="absolute top-0 left-0 w-full h-full opacity-0 z-10"
+          />
         </div>
+      </div>
+
+      {/* Controls */}
+      <div className="flex items-center justify-center space-x-4">
+        {/* Shuffle */}
+        <button
+          onClick={toggleShuffle}
+          className="w-4 h-4"
+          style={{
+            filter: isShuffling
+              ? `drop-shadow(0 0 5px ${currentTrack.themeColor})`
+              : "none",
+          }}
+        >
+          <img src={ShuffleIcon} alt="Shuffle" className="w-4 h-4" />
+        </button>
+
+        {/* Previous */}
+        <button onClick={prevTrack} className="w-6 h-6">
+          <img src={PrevIcon} alt="Previous" className="w-6 h-6" />
+        </button>
+
+        {/* Play/Pause */}
+        <button onClick={togglePlayPause} className="w-6 h-6">
+          <img
+            src={isPlaying ? PauseIcon : PlayIcon}
+            alt="Play/Pause"
+            className="w-6 h-6"
+          />
+        </button>
+
+        {/* Next */}
+        <button onClick={nextTrack} className="w-6 h-6">
+          <img src={NextIcon} alt="Next" className="w-6 h-6" />
+        </button>
+
+        {/* Repeat */}
+        <button
+          onClick={toggleLoop}
+          className="w-4 h-4"
+          style={{
+            filter: isLooping
+              ? `drop-shadow(0 0 5px ${currentTrack.themeColor})`
+              : "none",
+          }}
+        >
+          <img src={RepeatIcon} alt="Repeat" className="w-4 h-4" />
+        </button>
       </div>
     </div>
   );

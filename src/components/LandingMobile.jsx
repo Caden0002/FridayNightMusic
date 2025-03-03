@@ -3,7 +3,6 @@ import AudioPlayerLanding from "./AudioPlayerLanding.jsx"; // Import the AudioPl
 import image from "/LandingBackground.gif";
 import home from "/LandingHomeButton.svg";
 import share from "/LandingShareButton.svg";
-import arrow from "/LandingArrowButton.svg";
 import github from "/LandingGithub.svg";
 import instagram from "/LandingInstagramButton.svg";
 import android from "/LandingAndroidButton.svg";
@@ -11,7 +10,6 @@ import apple from "/LandingAppStoreButton.svg";
 
 import { themes } from "./theme.js"; // Import all themes
 import { useNavigate } from "react-router-dom"; // Import React Router for navigation
-import { motion, AnimatePresence } from "framer-motion";
 
 const glassContainer =
   "bg-white/50 backdrop-blur-sm border border-white rounded-[2rem]";
@@ -30,7 +28,6 @@ function LandingMobile() {
   const navigate = useNavigate();
   const [wordIndex, setWordIndex] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
-  const [showAudioPlayer, setShowAudioPlayer] = useState(false);
   const [fireflies, setFireflies] = useState([]);
 
   useEffect(() => {
@@ -54,47 +51,25 @@ function LandingMobile() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleListenClick = () => {
-    setShowAudioPlayer((prev) => !prev);
-  };
-
   return (
-    <div className="h-auto min-h-screen bg-black flex flex-col items-center justify-start bg-cover bg-center relative overflow-y-auto">
-      {" "}
+    <div className="min-h-screen flex flex-col items-center justify-center bg-black bg-cover bg-center relative">
       {/* Background Image */}
-      <img
-        src={image}
-        alt="Landing"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      />
+      <div className="absolute inset-0 w-full h-full bg-cover bg-center">
+        <img src={image} alt="Landing" className="w-full h-full object-cover" />
+      </div>
+
       {/* Overlay */}
-      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-10"></div>
-      {/* Fireflies Animation */}
-      {fireflies.map((fly) => (
-        <div
-          key={fly.id}
-          className="absolute z-50"
-          style={{
-            left: `${fly.left}%`,
-            bottom: "-10px",
-            width: `${fly.size}px`,
-            height: `${fly.size}px`,
-            backgroundColor: "#fecc59",
-            borderRadius: "50%",
-            boxShadow: "0 0 10px #fecc59, 0 0 20px #fecc59",
-            animation: `firefly ${fly.duration}s ease-in-out ${fly.delay}s infinite`,
-          }}
-        />
-      ))}
-      {/* Content */}
-      <div className="relative z-20 flex flex-col items-center justify-center w-full px-6">
+      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+
+      {/* Content Container */}
+      <div className="relative flex flex-col items-center justify-center w-full px-6 py-12 gap-6">
         {/* Title */}
-        <h1 className="text-4xl font-PS font-extrabold text-black drop-shadow-lg mt-6">
+        <h1 className="text-2xl font-PS font-extrabold text-black drop-shadow-lg">
           Melody Moods
         </h1>
 
-        {/* Buttons */}
-        <div className="flex space-x-3 mt-4">
+        {/* Button Group */}
+        <div className="flex space-x-3">
           <button className={`bg-[#fecc59] ${button}`}>
             <img src={home} alt="Home" className="w-4 h-4" />
           </button>
@@ -116,8 +91,7 @@ function LandingMobile() {
         </div>
 
         {/* Animated Words */}
-        <div className="text-center text-5xl font-extrabold text-black tracking-wide mt-6">
-          Immerse in <br />
+        <div className="mt-12 text-center text-5xl font-extrabold text-black tracking-wide">
           <span className="text-[#fecc59]">
             <span
               className={`transition-opacity duration-1000 ${
@@ -125,63 +99,88 @@ function LandingMobile() {
               }`}
             >
               {words[wordIndex].english}{" "}
-              <span className="text-4xl font-normal">
+              <span className="text-3xl font-normal">
                 {words[wordIndex].japanese}
               </span>
             </span>
           </span>
-          <br />
-          Music
         </div>
 
-        {/* Glass Container - Opens AudioPlayer */}
-        <div className={`${glassContainer} mt-8 p-4 text-center w-[260px]`}>
+        {/* Glass Container 1 */}
+        <div
+          className={`${glassContainer} w-full max-w-[400px] flex flex-col items-center p-4`}
+        >
+          <div className="flex flex-wrap justify-center gap-2 w-full">
+            {Object.entries(themes) // Convert object to array of key-value pairs
+              .filter(([key, theme]) => !theme.hidden) // Exclude hidden themes
+              .map(([key, theme]) => (
+                <a
+                  key={key}
+                  href={`/${key}`} // Navigate to the theme route
+                  target="_blank" // Opens in a new tab
+                  rel="noopener noreferrer" // Security best practice
+                  className="text-xs text-center font-medium bg-white text-gray-500 px-4 py-2 rounded-[1.5rem] inline-block cursor-pointer transition duration-300 hover:bg-[#fecc59] hover:text-white"
+                >
+                  {theme.audioTheme}
+                </a>
+              ))}
+          </div>
+        </div>
+
+        {/* Glass Container 2*/}
+        <div
+          className={`${glassContainer} w-full max-w-[400px] p-4 text-center w-[260px]`}
+        >
           <p className="text-sm font-medium text-gray-500">
             Generate immersive music moods for yourself or send a vibe to your
             friends!
           </p>
-
-          <div
-            className="mt-4 bg-white rounded-[2rem] flex items-center justify-between pl-5 pr-3 py-2 cursor-pointer"
-            onClick={handleListenClick}
-          >
-            <span className="text-normal text-black">
-              {showAudioPlayer ? "Minimise" : "Listen"}
-            </span>
-            <button
-              className={`hover:bg-gray-300 bg-[#fecc59] ${button} h-8 w-8`}
-            >
-              <img
-                src={arrow}
-                alt="Arrow"
-                className={`w-4 h-4 transform ${
-                  showAudioPlayer ? "rotate-90" : ""
-                }`}
-              />
-            </button>
-          </div>
         </div>
 
-        {/* Audio Player with Framer Motion Animation */}
-        <AnimatePresence>
-          {showAudioPlayer && (
-            <motion.div
-              className="mt-6 flex justify-center w-full z-50"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-              exit={{ opacity: 0, y: 40, transition: { duration: 0.5 } }}
-            >
-              <AudioPlayerLanding
-                audioSrc="/Landing/AudioLanding.mp3"
-                audioTitle="Intro Theme"
-                audioArtist="Melody Mood"
-                themeColor="#000000"
-                audioTheme="Welcome"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div className="">
+          <AudioPlayerLanding
+            audioSrc="/Landing/AudioLanding.mp3"
+            audioTitle="Intro Theme"
+            audioArtist="Melody Mood"
+            themeColor="#000000"
+            audioTheme="Welcome"
+            className=""
+          />
+        </div>
       </div>
+
+      {/* Fireflies Animation */}
+      <div className="absolute inset-0 flex flex-col justify-end items-center pointer-events-none">
+        {fireflies.map((fly) => (
+          <div
+            key={fly.id}
+            className="absolute"
+            style={{
+              left: `${fly.left}%`,
+              bottom: "0px",
+              width: `${fly.size}px`,
+              height: `${fly.size}px`,
+              backgroundColor: "#fecc59",
+              borderRadius: "50%",
+              boxShadow: "0 0 10px #fecc59, 0 0 20px #fecc59",
+              animation: `firefly ${fly.duration}s ease-in-out ${fly.delay}s infinite`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Firefly Animation Keyframes */}
+      <style>
+        {`
+    @keyframes firefly {
+      0% { transform: translateY(0) translateX(0); opacity: 1; }
+      25% { transform: translateY(-20vh) translateX(-10px); opacity: 0.8; }
+      50% { transform: translateY(-40vh) translateX(10px); opacity: 0.6; }
+      75% { transform: translateY(-60vh) translateX(-10px); opacity: 0.4; }
+      100% { transform: translateY(-100vh) translateX(0); opacity: 0; }
+    }
+  `}
+      </style>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import AudioPlayerLanding from "./AudioPlayerLanding.jsx"; // Import the AudioPlayer component
 import image from "/LandingBackground.gif";
 import image2 from "/LandingImage2.png";
@@ -35,6 +36,35 @@ const audioVariants = {
 };
 
 function LandingLaptop() {
+  const [customInput, setCustomInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Extract all valid theme routes from themes.js
+  const searchableRoutes = Object.keys(themes);
+
+  const handleCustomRoute = () => {
+    const formattedInput = customInput.toLowerCase().trim();
+
+    if (!formattedInput) {
+      setErrorMessage("Please enter a code.");
+      return;
+    }
+
+    if (searchableRoutes.includes(formattedInput)) {
+      navigate(`/${formattedInput}`);
+      setErrorMessage(""); // Clear error
+      setCustomInput(""); // Clear input field after navigation
+    } else {
+      setErrorMessage("Invalid code. Please try again.");
+    }
+  };
+
+  // Handle "Enter" key press
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleCustomRoute();
+    }
+  };
   const navigate = useNavigate();
 
   const [fireflies, setFireflies] = useState([]);
@@ -109,7 +139,7 @@ function LandingLaptop() {
       ))}
 
       {/* Content Container */}
-      <div className="bg-white/80 backdrop-blur-md rounded-[3.5rem] h-full w-full relative flex flex-col items-center justify-center p-10 z-10">
+      <div className="bg-white/80 backdrop-blur-md rounded-[3.5rem] h-full min-h-[612px] w-full relative flex flex-col items-center justify-center p-10 z-10 ">
         {/* Top Right Buttons (Home & Share) */}
         <div className="absolute top-24 left-8 flex flex-col space-y-4">
           <button className={`bg-[#fecc59] ${button}`}>
@@ -158,77 +188,131 @@ function LandingLaptop() {
           Music
         </div>
 
-        {/* Glass Container - Display all audio themes */}
-        <div
-          className={`${glassContainer} hidden md:block absolute bottom-4 left-32 w-[400px] p-2 `}
-        >
-          <div>
-            {Object.entries(themes) // Convert object to array of key-value pairs
-              .filter(([key, theme]) => !theme.hidden) // Exclude hidden themes
-              .map(([key, theme]) => (
-                <a
-                  key={key}
-                  href={`/${key}`} // Navigate to the theme route
-                  target="_blank" // Opens in a new tab
-                  rel="noopener noreferrer" // Security best practice
-                  className="text-xs text-center font-medium bg-white text-gray-500 px-4 py-2 rounded-[1.5rem] inline-block m-1.5 cursor-pointer transition duration-300 hover:bg-[#fecc59] hover:text-white"
+        {/* Parent Flex Container for Themes, Open Audio, and Player */}
+        <div className="flex mr-16 mt-36 ml-56 justify-left items-end w-full gap-4">
+          {/* Glass Container - Display all audio themes */}
+          <div className={`${glassContainer} hidden md:block w-[400px] p-2 `}>
+            <div>
+              {Object.entries(themes) // Convert object to array of key-value pairs
+                .filter(([key, theme]) => !theme.hidden) // Exclude hidden themes
+                .map(([key, theme]) => (
+                  <a
+                    key={key}
+                    href={`/${key}`} // Navigate to the theme route
+                    target="_blank" // Opens in a new tab
+                    rel="noopener noreferrer" // Security best practice
+                    className="text-xs text-center font-medium bg-white text-gray-500 px-4 py-2 rounded-[1.5rem] inline-block m-1.5 cursor-pointer transition duration-300 hover:bg-[#fecc59] hover:text-white"
+                  >
+                    {theme.audioTheme}
+                  </a>
+                ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col space-y-4 ">
+            {/* Glass Container - Have a code? */}
+            <div className="flex flex-col items-center">
+              <div
+                className={`${glassContainer} p-1 text-center w-[220px] max-h-[60px]`}
+              >
+                <div
+                  className={`rounded-[2rem] flex items-center justify-between pl-5 pr-3 py-2 border ${
+                    errorMessage ? "border-red-500" : "border-[#fecc59]"
+                  } transition-all duration-300`}
                 >
-                  {theme.audioTheme}
-                </a>
-              ))}
+                  {/* Input Field */}
+                  <input
+                    type="text"
+                    placeholder="Have a code?"
+                    value={customInput}
+                    onChange={(e) => setCustomInput(e.target.value)}
+                    onKeyDown={handleKeyDown} // Allows Enter key submission
+                    className="p-1 text-black bg-transparent focus:outline-none w-full text-left"
+                  />
+
+                  {/* Submit Button */}
+                  <button
+                    onClick={handleCustomRoute}
+                    disabled={!customInput.trim()} // Prevents empty submission
+                    className={`${
+                      !customInput.trim()
+                        ? "opacity-50 cursor-not-allowed"
+                        : "hover:bg-[#e6b450]"
+                    } bg-[#fecc59] transition rounded-full flex items-center justify-center h-8 w-8`}
+                  >
+                    <img src={arrow} alt="Arrow" className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Glass Container - Generate Button */}
+
+            <div
+              className={`${glassContainer} hidden md:block p-1 text-center w-[220px]`}
+            >
+              <div className=" cursor-not-allowed  rounded-[2rem] flex items-center justify-between pl-5 pr-3 py-2 ">
+                <span className="text-normal text-black">Generate</span>{" "}
+                <button
+                  className={`cursor-not-allowed bg-gray-300 hover:bg-gray-300 bg-[#fecc59] ${button} h-8 w-8 `}
+                >
+                  <img src={arrow} alt="Arrow" className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Glass Container - Opens AudioPlayer */}
+            <div className={`${glassContainer} p-4 text-center w-[220px]`}>
+              <p className="text-normal font-medium text-gray-500">
+                Generate immersive music moods for yourself or send a vibe to
+                your friends!
+              </p>
+
+              <div
+                className=" mt-8 bg-white rounded-[2rem] flex items-center justify-between pl-5 pr-3 py-2 cursor-pointer"
+                onClick={handleListenClick}
+              >
+                <span className="text-normal text-black">
+                  {showAudioPlayer ? "Minimise" : "Listen"}
+                </span>{" "}
+                <button
+                  className={`hover:bg-gray-300 bg-[#fecc59] ${button} h-8 w-8 `}
+                >
+                  <img
+                    src={arrow}
+                    alt="Arrow"
+                    className={`w-4 h-4 transform ${
+                      showAudioPlayer ? "rotate-90" : ""
+                    }`}
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Audio Player with Framer Motion Animation */}
+          <div className="min-w-[330px] min-h-[445px] flex justify-center z-50">
+            <AnimatePresence>
+              {showAudioPlayer && (
+                <motion.div
+                  className=""
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+                  exit={{ opacity: 0, y: 20, transition: { duration: 0.5 } }}
+                >
+                  <AudioPlayerLanding
+                    audioSrc="/Landing/AudioLanding.mp3"
+                    audioTitle="Intro Theme"
+                    audioArtist="Melody Mood"
+                    themeColor="#000000"
+                    audioTheme="Welcome"
+                    className=""
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
-
-        {/* Glass Container - Opens AudioPlayer */}
-        <div
-          className={`${glassContainer} absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 text-center w-[220px]`}
-        >
-          <p className="text-normal font-medium text-gray-500">
-            Generate immersive music moods for yourself or send a vibe to your
-            friends!
-          </p>
-
-          <div
-            className=" mt-8 bg-white rounded-[2rem] flex items-center justify-between pl-5 pr-3 py-2 cursor-pointer"
-            onClick={handleListenClick}
-          >
-            <span className="text-normal text-black">
-              {showAudioPlayer ? "Minimise" : "Listen"}
-            </span>{" "}
-            <button
-              className={`hover:bg-gray-300 bg-[#fecc59] ${button} h-8 w-8 `}
-            >
-              <img
-                src={arrow}
-                alt="Arrow"
-                className={`w-4 h-4 transform ${
-                  showAudioPlayer ? "rotate-90" : ""
-                }`}
-              />
-            </button>
-          </div>
-        </div>
-
-        {/* Audio Player with Framer Motion Animation */}
-        <AnimatePresence>
-          {showAudioPlayer && (
-            <motion.div
-              className="mb-[320px] ml-[630px] flex justify-center w-full z-50"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-              exit={{ opacity: 0, y: 40, transition: { duration: 0.5 } }}
-            >
-              <AudioPlayerLanding
-                audioSrc="/Landing/AudioLanding.mp3"
-                audioTitle="Intro Theme"
-                audioArtist="Melody Mood"
-                themeColor="#000000"
-                audioTheme="Welcome"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         {/* Image2 at Bottom Right */}
         <img
           src={image2}
