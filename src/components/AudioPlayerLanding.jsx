@@ -33,6 +33,8 @@ function AudioPlayerLanding({ className }) {
   const currentTrack = availableTracks[currentTrackIndex]; // Get current track details
   const audioRef = useRef(new Audio(currentTrack.audioSrc));
 
+  const [imageLoading, setImageLoading] = useState(true);
+
   /** 🔄 Update audio source when track or play state changes **/
   useEffect(() => {
     const audio = audioRef.current;
@@ -207,17 +209,26 @@ function AudioPlayerLanding({ className }) {
       <div className="w-auto h-full text-center">
         {/* Display bgImage or bgVideo above audioTheme */}
         {currentTrack.bgImage ? (
-          <img
-            src={currentTrack.bgImage}
-            alt="Background"
-            className="mx-auto mb-4 w-[300px] h-[225px] rounded-[0.25rem]"
-            style={{}}
-          />
+          <>
+            {imageLoading && (
+              <div className="flex justify-center items-center w-[300px] h-[225px] bg-gray-800 rounded-[0.25rem]">
+                <div className="w-8 h-8 border-4 border-gray-300 border-t-[#fecc59] rounded-full animate-spin"></div>
+              </div>
+            )}
+            <img
+              src={currentTrack.bgImage}
+              alt="Background"
+              className={`mx-auto mb-4 w-[300px] h-[225px] rounded-[0.25rem] ${
+                imageLoading ? "hidden" : "block"
+              }`}
+              onLoad={() => setImageLoading(false)}
+              onError={() => setImageLoading(false)} // Fallback in case of an error
+            />
+          </>
         ) : currentTrack.bgVideo ? (
           <video
             src={currentTrack.bgVideo}
             className="mx-auto mb-1 w-[300px] h-[225px] rounded-[0.25rem]"
-            style={{}}
             muted
             loop
             playsInline

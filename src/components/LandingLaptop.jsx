@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import AudioPlayerLanding from "./AudioPlayerLanding.jsx"; // Import the AudioPlayer component
 import Fireflies from "./LandingFireflies.jsx"; // Import Fireflies component
 import SocialButtons from "./LandingSocialButtons.jsx"; // Import SocialButtons component
+import LandingCodeInput from "./LandingCodeInput.jsx"; // Import Have a Code component
+import LandingGenerateButton from "./LandingGenerateButton.jsx"; // Import Generate button component
 
 import image from "/LandingBackground.gif";
 import image2 from "/LandingImage2.png";
@@ -179,56 +181,17 @@ function LandingLaptop() {
           </div>
 
           <div className="flex flex-col space-y-4 ">
-            {/* Glass Container - Have a code? */}
-            <div className="flex flex-col items-center z-10">
-              <div
-                className={`${glassContainer} p-1 text-center w-[220px] max-h-[60px]`}
-              >
-                <div
-                  className={`rounded-[2rem] flex items-center justify-between pl-5 pr-3 py-2 border ${
-                    errorMessage ? "border-red-500" : "border-[#fecc59]"
-                  } transition-all duration-300`}
-                >
-                  {/* Input Field */}
-                  <input
-                    type="text"
-                    placeholder="Have a code?"
-                    value={customInput}
-                    onChange={(e) => setCustomInput(e.target.value)}
-                    onKeyDown={handleKeyDown} // Allows Enter key submission
-                    className="p-1 text-black bg-transparent focus:outline-none w-full text-left"
-                  />
+            {/* Have a Code? Input */}
+            <LandingCodeInput
+              customInput={customInput}
+              setCustomInput={setCustomInput}
+              handleCustomRoute={handleCustomRoute}
+              handleKeyDown={handleKeyDown}
+              errorMessage={errorMessage}
+            />
 
-                  {/* Submit Button */}
-                  <button
-                    onClick={handleCustomRoute}
-                    disabled={!customInput.trim()} // Prevents empty submission
-                    className={`${
-                      !customInput.trim()
-                        ? "opacity-50 cursor-not-allowed"
-                        : "hover:bg-[#e6b450]"
-                    } bg-[#fecc59] transition rounded-full flex items-center justify-center h-8 w-8`}
-                  >
-                    <img src={arrow} alt="Arrow" className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Glass Container - Generate Button */}
-
-            <div
-              className={`${glassContainer} hidden md:block p-1 text-center w-[220px] z-10`}
-            >
-              <div className=" cursor-not-allowed  rounded-[2rem] flex items-center justify-between pl-5 pr-3 py-2 ">
-                <span className="text-normal text-black">Generate</span>{" "}
-                <button
-                  className={`cursor-not-allowed bg-gray-300 hover:bg-gray-300 bg-[#fecc59] ${button} h-8 w-8 `}
-                >
-                  <img src={arrow} alt="Arrow" className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
+            {/* Generate Button */}
+            <LandingGenerateButton />
 
             {/* Glass Container - Opens AudioPlayer */}
             <div className={`${glassContainer} p-4 text-center w-[220px] z-10`}>

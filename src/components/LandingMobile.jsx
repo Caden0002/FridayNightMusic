@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AudioPlayerLanding from "./AudioPlayerLanding.jsx"; // Import the AudioPlayer component
 import Fireflies from "./LandingFireflies.jsx"; // Import Fireflies component
 import SocialButtons from "./LandingSocialButtons.jsx"; // Import SocialButtons component
+import LandingCodeInput from "./LandingCodeInput.jsx"; // Import "Have a Code?" input component
 
 import image from "/LandingBackground.gif";
 import home from "/LandingHomeButton.svg";
@@ -29,9 +30,36 @@ const words = [
 
 function LandingMobile() {
   const navigate = useNavigate();
+  const [customInput, setCustomInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
   const [fireflies, setFireflies] = useState([]);
+
+  // Function to handle navigation based on input
+  const handleCustomRoute = () => {
+    const formattedInput = customInput.toLowerCase().trim();
+
+    if (!formattedInput) {
+      setErrorMessage("Please enter a code.");
+      return;
+    }
+
+    if (Object.keys(themes).includes(formattedInput)) {
+      navigate(`/${formattedInput}`);
+      setErrorMessage(""); // Clear error
+      setCustomInput(""); // Clear input field after navigation
+    } else {
+      setErrorMessage("Invalid code. Please try again.");
+    }
+  };
+
+  // Handle "Enter" key press
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleCustomRoute();
+    }
+  };
 
   useEffect(() => {
     const fireflyArray = Array.from({ length: 15 }).map(() => ({
@@ -62,7 +90,7 @@ function LandingMobile() {
       </div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 bg-white/0 backdrop-blur-"></div>
 
       {/* Content Container */}
       <div className="relative flex flex-col items-center justify-center w-full px-6 py-12 gap-6">
@@ -76,7 +104,7 @@ function LandingMobile() {
 
         {/* Animated Words */}
         <div className="mt-24 text-center text-5xl font-extrabold text-black tracking-wide">
-          <span className="text-[#fecc59]">
+          <span className="text-[black]">
             <span
               className={`transition-opacity duration-1000 ${
                 fadeOut ? "opacity-0" : "opacity-100"
@@ -120,6 +148,15 @@ function LandingMobile() {
             friends!
           </p>
         </div>
+
+        {/* Code Input Section */}
+        <LandingCodeInput
+          customInput={customInput}
+          setCustomInput={setCustomInput}
+          handleCustomRoute={handleCustomRoute}
+          handleKeyDown={handleKeyDown}
+          errorMessage={errorMessage}
+        />
 
         <div className="">
           <AudioPlayerLanding
