@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import AudioPlayerLanding from "./AudioPlayerLanding.jsx"; // Import the AudioPlayer component
+import Fireflies from "./LandingFireflies.jsx"; // Import Fireflies component
+import SocialButtons from "./LandingSocialButtons.jsx"; // Import SocialButtons component
+
 import image from "/LandingBackground.gif";
 import image2 from "/LandingImage2.png";
 import home from "/LandingHomeButton.svg";
@@ -121,46 +124,12 @@ function LandingLaptop() {
       />
 
       {/* Fireflies Animation */}
-      {fireflies.map((fly) => (
-        <div
-          key={fly.id}
-          className="absolute z-50"
-          style={{
-            left: `${fly.left}%`,
-            bottom: "-10px", // Start below screen
-            width: `${fly.size}px`,
-            height: `${fly.size}px`,
-            backgroundColor: "#fecc59",
-            borderRadius: "50%",
-            boxShadow: "0 0 10px #fecc59, 0 0 20px #fecc59",
-            animation: `firefly ${fly.duration}s ease-in-out ${fly.delay}s infinite`,
-          }}
-        />
-      ))}
+      <Fireflies fireflies={fireflies} />
 
       {/* Content Container */}
       <div className="bg-white/80 backdrop-blur-md rounded-[3.5rem] h-full min-h-[612px] w-full relative flex flex-col items-center justify-center p-10 z-10 ">
         {/* Top Right Buttons (Home & Share) */}
-        <div className="absolute top-24 left-8 flex flex-col space-y-4">
-          <button className={`bg-[#fecc59] ${button}`}>
-            <img src={home} alt="Home" className="w-4 h-4" />
-          </button>
-          <button className={`bg-white hover:bg-[#fecc59] ${button}`}>
-            <img src={share} alt="Share" className="w-4 h-4" />
-          </button>
-          <button className={`bg-white hover:bg-[#fecc59] ${button}`}>
-            <img src={github} alt="Share" className="w-4 h-4" />
-          </button>
-          <button className={`bg-gray-300 cursor-not-allowed ${button}`}>
-            <img src={instagram} alt="Share" className="w-4 h-4" />
-          </button>
-          <button className={`bg-gray-300 cursor-not-allowed ${button}`}>
-            <img src={apple} alt="Share" className="w-4 h-4" />
-          </button>
-          <button className={`bg-gray-300 cursor-not-allowed ${button}`}>
-            <img src={android} alt="Share" className="w-4 h-4" />
-          </button>
-        </div>
+        <SocialButtons />
 
         {/* Title (Top Left) */}
         <h1 className="absolute top-6 left-10 text-4xl font-PS font-extrabold text-black drop-shadow-lg">
@@ -211,7 +180,7 @@ function LandingLaptop() {
 
           <div className="flex flex-col space-y-4 ">
             {/* Glass Container - Have a code? */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center z-10">
               <div
                 className={`${glassContainer} p-1 text-center w-[220px] max-h-[60px]`}
               >
@@ -249,7 +218,7 @@ function LandingLaptop() {
             {/* Glass Container - Generate Button */}
 
             <div
-              className={`${glassContainer} hidden md:block p-1 text-center w-[220px]`}
+              className={`${glassContainer} hidden md:block p-1 text-center w-[220px] z-10`}
             >
               <div className=" cursor-not-allowed  rounded-[2rem] flex items-center justify-between pl-5 pr-3 py-2 ">
                 <span className="text-normal text-black">Generate</span>{" "}
@@ -262,7 +231,7 @@ function LandingLaptop() {
             </div>
 
             {/* Glass Container - Opens AudioPlayer */}
-            <div className={`${glassContainer} p-4 text-center w-[220px]`}>
+            <div className={`${glassContainer} p-4 text-center w-[220px] z-10`}>
               <p className="text-normal font-medium text-gray-500">
                 Generate immersive music moods for yourself or send a vibe to
                 your friends!

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import AudioPlayerLanding from "./AudioPlayerLanding.jsx"; // Import the AudioPlayer component
+import Fireflies from "./LandingFireflies.jsx"; // Import Fireflies component
+import SocialButtons from "./LandingSocialButtons.jsx"; // Import SocialButtons component
+
 import image from "/LandingBackground.gif";
 import home from "/LandingHomeButton.svg";
 import share from "/LandingShareButton.svg";
@@ -52,7 +55,7 @@ function LandingMobile() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-black bg-cover bg-center relative">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-black bg-cover bg-center relative overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full bg-cover bg-center">
         <img src={image} alt="Landing" className="w-full h-full object-cover" />
@@ -69,29 +72,10 @@ function LandingMobile() {
         </h1>
 
         {/* Button Group */}
-        <div className="flex space-x-3">
-          <button className={`bg-[#fecc59] ${button}`}>
-            <img src={home} alt="Home" className="w-4 h-4" />
-          </button>
-          <button className={`bg-white hover:bg-[#fecc59] ${button}`}>
-            <img src={share} alt="Share" className="w-4 h-4" />
-          </button>
-          <button className={`bg-white hover:bg-[#fecc59] ${button}`}>
-            <img src={github} alt="Github" className="w-4 h-4" />
-          </button>
-          <button className={`bg-gray-300 cursor-not-allowed ${button}`}>
-            <img src={instagram} alt="Instagram" className="w-4 h-4" />
-          </button>
-          <button className={`bg-gray-300 cursor-not-allowed ${button}`}>
-            <img src={apple} alt="App Store" className="w-4 h-4" />
-          </button>
-          <button className={`bg-gray-300 cursor-not-allowed ${button}`}>
-            <img src={android} alt="Android" className="w-4 h-4" />
-          </button>
-        </div>
+        <SocialButtons />
 
         {/* Animated Words */}
-        <div className="mt-12 text-center text-5xl font-extrabold text-black tracking-wide">
+        <div className="mt-24 text-center text-5xl font-extrabold text-black tracking-wide">
           <span className="text-[#fecc59]">
             <span
               className={`transition-opacity duration-1000 ${
@@ -150,24 +134,7 @@ function LandingMobile() {
       </div>
 
       {/* Fireflies Animation */}
-      <div className="absolute inset-0 flex flex-col justify-end items-center pointer-events-none">
-        {fireflies.map((fly) => (
-          <div
-            key={fly.id}
-            className="absolute"
-            style={{
-              left: `${fly.left}%`,
-              bottom: "0px",
-              width: `${fly.size}px`,
-              height: `${fly.size}px`,
-              backgroundColor: "#fecc59",
-              borderRadius: "50%",
-              boxShadow: "0 0 10px #fecc59, 0 0 20px #fecc59",
-              animation: `firefly ${fly.duration}s ease-in-out ${fly.delay}s infinite`,
-            }}
-          />
-        ))}
-      </div>
+      <Fireflies fireflies={fireflies} />
 
       {/* Firefly Animation Keyframes */}
       <style>
