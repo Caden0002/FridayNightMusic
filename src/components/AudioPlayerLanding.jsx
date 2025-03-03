@@ -34,7 +34,7 @@ function AudioPlayerLanding({ className }) {
   const currentTrack = availableTracks[currentTrackIndex]; // Get current track details
   const audioRef = useRef(new Audio(currentTrack.audioSrc));
 
-  // Reset media loading state when changing tracks
+  // Helper to change tracks and reset media loading state
   const changeTrack = (newIndex) => {
     setIsMediaLoaded(false);
     setCurrentTrackIndex(newIndex);
@@ -69,13 +69,10 @@ function AudioPlayerLanding({ className }) {
   /** ⏳ Handle time updates **/
   useEffect(() => {
     const audio = audioRef.current;
-
     const updateCurrentTime = () => {
       setCurrentTime(audio.currentTime);
     };
-
     audio.addEventListener("timeupdate", updateCurrentTime);
-
     return () => {
       audio.removeEventListener("timeupdate", updateCurrentTime);
     };
@@ -84,13 +81,11 @@ function AudioPlayerLanding({ className }) {
   /** 🎧 Handle end of track **/
   useEffect(() => {
     const audio = audioRef.current;
-
     const handleTrackEnd = () => {
       if (!isLooping) {
         nextTrack();
       }
     };
-
     audio.addEventListener("ended", handleTrackEnd);
     return () => audio.removeEventListener("ended", handleTrackEnd);
   }, [isLooping]);
@@ -110,18 +105,18 @@ function AudioPlayerLanding({ className }) {
       do {
         randomIndex = Math.floor(Math.random() * availableTracks.length);
       } while (randomIndex === currentTrackIndex);
-      setCurrentTrackIndex(randomIndex);
+      changeTrack(randomIndex);
     } else {
-      setCurrentTrackIndex(
-        (prevIndex) => (prevIndex + 1) % availableTracks.length
-      );
+      changeTrack((currentTrackIndex + 1) % availableTracks.length);
     }
   };
 
   /** ⏮ Previous Track **/
   const prevTrack = () => {
-    setCurrentTrackIndex((prevIndex) =>
-      prevIndex === 0 ? availableTracks.length - 1 : prevIndex - 1
+    changeTrack(
+      currentTrackIndex === 0
+        ? availableTracks.length - 1
+        : currentTrackIndex - 1
     );
   };
 
@@ -147,6 +142,7 @@ function AudioPlayerLanding({ className }) {
       <div className="w-auto h-full text-center">
         {currentTrack.bgImage ? (
           <>
+            {/* Loader shown when media is not loaded */}
             {!isMediaLoaded && (
               <div className="flex justify-center items-center w-[300px] h-[225px] bg-gray-800 rounded-[0.25rem]">
                 <div className="w-8 h-8 border-4 border-gray-300 border-t-[#fecc59] rounded-full animate-spin"></div>
@@ -174,7 +170,7 @@ function AudioPlayerLanding({ className }) {
           />
         ) : null}
 
-        {/* Song Details */}
+        {/* Song Details (only displayed after media is loaded) */}
         {isMediaLoaded && (
           <>
             <div
@@ -220,7 +216,7 @@ function AudioPlayerLanding({ className }) {
       </div>
 
       {/* Controls */}
-      <div className="flex items-center justify-center space-x-4 mt-4">
+      <div className="flex items-center justify-center space-x-4 mt-2">
         <button
           onClick={toggleShuffle}
           className="w-10 h-10 transition-all duration-300 relative"
@@ -236,7 +232,6 @@ function AudioPlayerLanding({ className }) {
         <button onClick={prevTrack} className="w-6 h-6">
           <img src={PrevIcon} alt="Previous" className="w-6 h-6" />
         </button>
-
         <button onClick={togglePlayPause} className="w-6 h-6">
           <img
             src={isPlaying ? PauseIcon : PlayIcon}
@@ -244,11 +239,9 @@ function AudioPlayerLanding({ className }) {
             className="w-6 h-6"
           />
         </button>
-
         <button onClick={nextTrack} className="w-6 h-6">
           <img src={NextIcon} alt="Next" className="w-6 h-6" />
         </button>
-
         <button
           onClick={toggleLoop}
           className="w-10 h-10 transition-all duration-300 relative"
