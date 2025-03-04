@@ -139,7 +139,7 @@ function LandingLaptop() {
         </h1>
 
         {/* Animated Words (Cycle through words) */}
-        <div className="absolute top-24 left-32 text-7xl font-extrabold text-black tracking-wide ">
+        <div className="absolute top-24 left-32 text-7xl xl:text-9xl font-extrabold text-black tracking-wide ">
           Immerse in
           <br />
           <span className="text-[#fecc59] relative inline-block">
@@ -160,7 +160,7 @@ function LandingLaptop() {
         </div>
 
         {/* Parent Flex Container for Themes, Open Audio, and Player */}
-        <div className="flex mr-16 mt-36 ml-56 justify-left items-end w-full gap-4">
+        <div className="flex mr-16 mt-auto ml-56 justify-left items-end w-full gap-4">
           {/* Glass Container - Display all audio themes */}
           <div className={`${glassContainer} hidden md:block w-[400px] p-2 `}>
             <div>
