@@ -142,12 +142,13 @@ function AudioPlayerLanding({ className }) {
       <div className="w-auto h-full text-center">
         {currentTrack.bgImage ? (
           <>
-            {/* Loader shown when media is not loaded */}
+            {/* Show loader while media is loading */}
             {!isMediaLoaded && (
               <div className="flex justify-center items-center w-[300px] h-[225px] bg-gray-800 rounded-[0.25rem]">
                 <div className="w-8 h-8 border-4 border-gray-300 border-t-[#fecc59] rounded-full animate-spin"></div>
               </div>
             )}
+            {/* Display the image only when loaded */}
             <img
               src={currentTrack.bgImage}
               alt="Background"
@@ -157,17 +158,6 @@ function AudioPlayerLanding({ className }) {
               onLoad={() => setIsMediaLoaded(true)}
             />
           </>
-        ) : currentTrack.bgVideo ? (
-          <video
-            src={currentTrack.bgVideo}
-            className={`mx-auto mb-1 w-[300px] h-[225px] rounded-[0.25rem] ${
-              isMediaLoaded ? "block" : "hidden"
-            }`}
-            onLoadedData={() => setIsMediaLoaded(true)}
-            muted
-            loop
-            playsInline
-          />
         ) : null}
 
         {/* Song Details (only displayed after media is loaded) */}

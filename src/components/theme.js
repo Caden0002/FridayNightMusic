@@ -41,7 +41,7 @@ export const themes = {
         hidden: true, // Hides from menu
     },
     amanda: {
-        bgVideo: "/Amanda/BackgroundAmanda.mp4",
+        bgImage: "/Amanda/BackgroundAmanda.gif",
         audioSrc: "/Amanda/AudioAmanda.mp3",
         audioTitle: "Always With Me (Lo-fi)",
         audioArtist: "Shoyo",
@@ -52,7 +52,7 @@ export const themes = {
         hidden: true, // Hides from menu
     },
     gina: {
-        bgVideo: "/Gina/BackgroundGina.mp4",
+        bgImage: "/Gina/BackgroundGina.gif",
         audioSrc: "/Gina/AudioGina.mp3",
         audioTitle: "In A Manner Of Speaking",
         audioArtist: "Nouvelle Vague",
@@ -113,7 +113,7 @@ export const themes = {
         objectPositionLg: "center",
     },
     waiting: {
-        bgVideo: "/Waiting/BackgroundWaiting.mp4",
+        bgImage: "/Waiting/BackgroundWaiting.gif",
         audioSrc: "/Waiting/AudioWaiting.mp3",
         audioTitle: "Moon",
         audioArtist: "Nem",
@@ -132,6 +132,5 @@ export const themes = {
         objectPositionSm: "30% 50%",
         objectPositionLg: "left",
         hidden: true,
-
     },
 };
