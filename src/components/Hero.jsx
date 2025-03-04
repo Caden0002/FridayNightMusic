@@ -7,7 +7,6 @@ import { themes } from "./theme.js"; // Import the themes
 
 function Hero() {
   const { themeName } = useParams();
-  // Use the themeName directly (assuming URL is case-sensitive)
   const theme = themes[themeName];
 
   if (!theme) {
@@ -19,6 +18,7 @@ function Hero() {
   }
 
   const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const [isBgLoaded, setIsBgLoaded] = useState(false); // Background load state
 
   useEffect(() => {
     const handleResize = () => setWindowSize(window.innerWidth);
@@ -31,25 +31,20 @@ function Hero() {
 
   return (
     <div className="relative min-h-screen h-[100dvh] flex">
-      {/* Background Video or Image */}
-      {theme.bgVideo ? (
-        <video
-          src={theme.bgVideo}
-          alt={`${themeName} Background`}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ zIndex: -1, objectPosition }}
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-      ) : (
-        <img
-          src={theme.bgImage}
-          alt={`${themeName} Background`}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ zIndex: -1, objectPosition }}
-        />
+      {/* Background Image with Loader */}
+      <img
+        src={theme.bgImage}
+        alt={`${themeName} Background`}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+          isBgLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ zIndex: -1, objectPosition }}
+        onLoad={() => setIsBgLoaded(true)}
+      />
+      {!isBgLoaded && (
+        <div className="absolute inset-0 flex justify-center items-center z-[-1]">
+          <div className="w-12 h-12 border-4 border-t-[#fecc59] border-gray-300 rounded-full animate-spin"></div>
+        </div>
       )}
 
       {/* Audio Player */}
