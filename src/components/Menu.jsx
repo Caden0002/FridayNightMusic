@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import MenuLogo from "/MenuLogo.gif";
 import { themes } from "./theme.js"; // Import the themes
@@ -78,6 +79,13 @@ function Menu() {
           ref={menuRef}
           className="fixed top-0 right-0 bottom-0 w-[300px] bg-[#000]/70 rounded-tl-lg rounded-bl-lg shadow-lg transition-transform duration-300 ease-in-out transform translate-x-0 p-6 overflow-y-auto max-h-screen"
         >
+          {" "}
+          <Link
+            to="/"
+            className="text-2xl font-PS font-extrabold text-white drop-shadow-lg"
+          >
+            Melody Moods
+          </Link>
           <div className="flex flex-col items-center space-y-6 mt-12 text-white text-md font-bold">
             {/* Custom Route Input */}
             <div className="w-full flex flex-col items-center mb-4">
