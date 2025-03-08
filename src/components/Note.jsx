@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import NoteInactiveLogo from "/NoteInactiveLogo.jpg"; // Import the inactive logo
-import NoteActiveLogo from "/NoteActiveLogo.jpg"; // Import the active logo
+import NoteInactiveLogo from "/NoteInactiveLogo.jpg"; // Inactive logo
+import NoteActiveLogo from "/NoteActiveLogo.jpg"; // Active logo
 
 function Note() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
     setIsExpanded(!isExpanded);
@@ -15,12 +16,14 @@ function Note() {
       {/* Note Logo */}
       <div
         onClick={handleClick}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className="flex items-center justify-center cursor-pointer"
       >
         <img
-          src={isExpanded ? NoteActiveLogo : NoteInactiveLogo}
+          src={isExpanded || isHovered ? NoteActiveLogo : NoteInactiveLogo}
           alt="Note"
-          className="w-16 h-16  rounded-lg"
+          className="w-16 h-16 rounded-lg"
         />
       </div>
 
