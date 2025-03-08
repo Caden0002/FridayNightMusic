@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MenuLogo from "/MenuLogo.gif";
 import { themes } from "./theme.js"; // Import the themes
 
@@ -46,6 +45,19 @@ function Menu() {
     }
   };
 
+  // Disable background scrolling when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
   // Close menu if user clicks outside
   useEffect(() => {
     function handleClickOutside(event) {
@@ -77,9 +89,8 @@ function Menu() {
       {isMenuOpen && (
         <div
           ref={menuRef}
-          className="fixed top-0 right-0 bottom-0 w-[300px] bg-[#000]/70 rounded-tl-lg rounded-bl-lg shadow-lg transition-transform duration-300 ease-in-out transform translate-x-0 p-6 overflow-y-auto max-h-screen"
+          className="fixed top-0 right-0 bottom-0 w-[300px] bg-[#000]/70 rounded-tl-lg rounded-bl-lg shadow-lg transition-transform duration-300 ease-in-out transform translate-x-0 p-6 overflow-y-auto max-h-screen z-50"
         >
-          {" "}
           <Link
             to="/"
             className="text-2xl font-PS font-extrabold text-white drop-shadow-lg"
