@@ -164,7 +164,7 @@ function AudioPlayerLanding({ className }) {
                 isMediaLoaded ? "block" : "hidden"
               }`}
               onLoad={() => setIsMediaLoaded(true)}
-              onClick={() => window.open(`/${themeKey}`, "_blank")}
+              onClick={() => navigate(`/${themeKey}`)}
               style={{ cursor: "pointer" }}
             />
           </>
