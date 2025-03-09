@@ -133,4 +133,14 @@ export const themes = {
         objectPositionLg: "left",
         hidden: true,
     },
+    bar: {
+        bgImage: "/Bar/BackgroundBar.gif",
+        audioSrc: "/Bar/AudioBar.mp3",
+        audioTitle: "Don't Sweat It",
+        audioArtist: "Take your time",
+        themeColor: "#f88bff",
+        audioTheme: "Neon Bar",
+        objectPositionSm: "70% 30%",
+        objectPositionLg: "right",
+    },
 };
