@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { themes } from "./theme.js"; // Import all themes
+import { useNavigate } from "react-router-dom";
 
 // Import button icons
 import NextIcon from "/PlayerButtons/next.svg";
@@ -33,6 +34,13 @@ function AudioPlayerLanding({ className }) {
 
   const currentTrack = availableTracks[currentTrackIndex]; // Get current track details
   const audioRef = useRef(new Audio(currentTrack.audioSrc));
+
+  const navigate = useNavigate();
+
+  // Find the key of the current theme so we can navigate to its route
+  const themeKey = Object.keys(themes).find(
+    (key) => themes[key].audioSrc === currentTrack.audioSrc
+  );
 
   // Helper to change tracks and reset media loading state
   const changeTrack = (newIndex) => {
@@ -156,6 +164,8 @@ function AudioPlayerLanding({ className }) {
                 isMediaLoaded ? "block" : "hidden"
               }`}
               onLoad={() => setIsMediaLoaded(true)}
+              onClick={() => window.open(`/${themeKey}`, "_blank")}
+              style={{ cursor: "pointer" }}
             />
           </>
         ) : null}
