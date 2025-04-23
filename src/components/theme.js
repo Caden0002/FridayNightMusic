@@ -152,5 +152,6 @@ export const themes = {
         audioTheme: "Marilyn",
         objectPositionSm: "35% 55%",
         objectPositionLg: "center",
+        hidden: true,
     },
 };
