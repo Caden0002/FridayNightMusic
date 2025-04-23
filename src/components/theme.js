@@ -143,4 +143,14 @@ export const themes = {
         objectPositionSm: "70% 30%",
         objectPositionLg: "right",
     },
+    marilyn: {
+        bgImage: "/Marilyn/BackgroundMarilyn.gif",
+        audioSrc: "/Marilyn/AudioMarilyn.mp3",
+        audioTitle: "乌梅子酱",
+        audioArtist: "李荣浩",
+        themeColor: "#FFC0CB",
+        audioTheme: "Marilyn",
+        objectPositionSm: "35% 55%",
+        objectPositionLg: "center",
+    },
 };
