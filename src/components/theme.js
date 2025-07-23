@@ -154,4 +154,15 @@ export const themes = {
         objectPositionLg: "center",
         hidden: true,
     },
+    karissa: {
+        bgImage: "/Karissa/BackgroundKarissa.gif",
+        audioSrc: "/Karissa/AudioKarissa.mp3",
+        audioTitle: "back to friends",
+        audioArtist: "sombr",
+        themeColor: "#FFC0CB",
+        audioTheme: "Karissa",
+        objectPositionSm: "75% 25%",
+        objectPositionLg: "center",
+        hidden: true,
+    },
 };
