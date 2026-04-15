@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AudioPlayer from "./AudioPlayer.jsx";
 import Note from "./Note.jsx";
@@ -18,7 +18,8 @@ function Hero() {
   }
 
   const [windowSize, setWindowSize] = useState(window.innerWidth);
-  const [isBgLoaded, setIsBgLoaded] = useState(false); // Background load state
+  const [isBgLoaded, setIsBgLoaded] = useState(false);
+  const [isAudioMetaLoaded, setIsAudioMetaLoaded] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setWindowSize(window.innerWidth);
@@ -26,12 +27,42 @@ function Hero() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    let isMounted = true;
+    setIsBgLoaded(false);
+    setIsAudioMetaLoaded(false);
+
+    const image = new Image();
+    image.onload = () => {
+      if (isMounted) setIsBgLoaded(true);
+    };
+    image.onerror = () => {
+      if (isMounted) setIsBgLoaded(true);
+    };
+    image.src = theme.bgImage;
+
+    const audio = document.createElement("audio");
+    audio.preload = "metadata";
+    audio.onloadedmetadata = () => {
+      if (isMounted) setIsAudioMetaLoaded(true);
+    };
+    audio.onerror = () => {
+      if (isMounted) setIsAudioMetaLoaded(true);
+    };
+    audio.src = theme.audioSrc;
+
+    return () => {
+      isMounted = false;
+    };
+  }, [theme.bgImage, theme.audioSrc]);
+
   const objectPosition =
     windowSize < 540 ? theme.objectPositionSm : theme.objectPositionLg;
+  const isThemeReady = isBgLoaded && isAudioMetaLoaded;
 
   return (
     <div className="relative min-h-screen h-[100dvh] flex">
-      {/* Background Image with Loader */}
+      {/* Background image is preloaded for this specific theme */}
       <img
         src={theme.bgImage}
         alt={`${themeName} Background`}
@@ -39,28 +70,32 @@ function Hero() {
           isBgLoaded ? "opacity-100" : "opacity-0"
         }`}
         style={{ zIndex: -1, objectPosition }}
-        onLoad={() => setIsBgLoaded(true)}
       />
-      {!isBgLoaded && (
-        <div className="absolute inset-0 flex justify-center items-center z-[-1]">
-          <div className="w-12 h-12 border-4 border-t-[#fecc59] border-gray-300 rounded-full animate-spin"></div>
+
+      {!isThemeReady && (
+        <div className="absolute inset-0 flex justify-center items-center bg-black/25 z-50">
+          <div className="w-12 h-12 border-4 border-t-[#fecc59] border-gray-300 rounded-full animate-spin" />
         </div>
       )}
 
-      {/* Audio Player */}
-      <AudioPlayer
-        audioSrc={theme.audioSrc}
-        audioTitle={theme.audioTitle}
-        audioArtist={theme.audioArtist}
-        themeColor={theme.themeColor}
-        audioTheme={theme.audioTheme}
-      />
+      {isThemeReady && (
+        <>
+          {/* Audio Player */}
+          <AudioPlayer
+            audioSrc={theme.audioSrc}
+            audioTitle={theme.audioTitle}
+            audioArtist={theme.audioArtist}
+            themeColor={theme.themeColor}
+            audioTheme={theme.audioTheme}
+          />
 
-      {/* Note Component */}
-      <Note />
+          {/* Note Component */}
+          <Note />
 
-      {/* Menu Component */}
-      <Menu />
+          {/* Menu Component */}
+          <Menu />
+        </>
+      )}
     </div>
   );
 }

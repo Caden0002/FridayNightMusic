@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import AudioPlayerLanding from "./AudioPlayerLanding.jsx"; // Import the AudioPlayer component
 import Fireflies from "./LandingFireflies.jsx"; // Import Fireflies component
@@ -8,13 +8,7 @@ import LandingGenerateButton from "./LandingGenerateButton.jsx"; // Import Gener
 
 import image from "/LandingBackground.gif";
 import image2 from "/LandingImage2.png";
-import home from "/LandingHomeButton.svg";
-import share from "/LandingShareButton.svg";
 import arrow from "/LandingArrowButton.svg";
-import github from "/LandingGithub.svg";
-import instagram from "/LandingInstagramButton.svg";
-import android from "/LandingAndroidButton.svg";
-import apple from "/LandingAppStoreButton.svg";
 
 import { themes } from "./theme.js"; // Import all themes
 import { useNavigate } from "react-router-dom"; // Import React Router for navigation
@@ -33,12 +27,6 @@ const words = [
   { english: "Relaxing", japanese: "静", romaji: "Sei" }, // "静" means "calm" or "quiet"
   { english: "Favorite", japanese: "愛", romaji: "Ai" }, // "愛" means "love" (as in favorite)
 ];
-
-// Variants for the audio player's exit animation
-const audioVariants = {
-  visible: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 40, transition: { duration: 1.5 } },
-};
 
 function LandingLaptop() {
   const [customInput, setCustomInput] = useState("");
@@ -76,7 +64,6 @@ function LandingLaptop() {
   const [wordIndex, setWordIndex] = useState(0); // Tracks the current word
   const [fadeOut, setFadeOut] = useState(false); // Controls fade-out effect
   const [showAudioPlayer, setShowAudioPlayer] = useState(false);
-  const [animateAudioExit, setAnimateAudioExit] = useState(false);
 
   useEffect(() => {
     // Generate 15 fireflies with random positions
@@ -104,16 +91,7 @@ function LandingLaptop() {
 
   // Toggle the audio player visibility with animation.
   const handleListenClick = () => {
-    if (showAudioPlayer) {
-      // Animate exit
-      setAnimateAudioExit(true);
-      setTimeout(() => {
-        setShowAudioPlayer(false);
-        setAnimateAudioExit(false);
-      }, 500); // Match this duration to your exit animation duration
-    } else {
-      setShowAudioPlayer(true);
-    }
+    setShowAudioPlayer((prev) => !prev);
   };
 
   return (
@@ -134,7 +112,7 @@ function LandingLaptop() {
         <SocialButtons />
 
         {/* Title (Top Left) */}
-        <h1 className="absolute top-6 left-10 text-4xl font-PS font-extrabold text-black drop-shadow-lg">
+        <h1 className="absolute top-6 left-10 text-4xl font-PS font-extrabold text-transparent bg-clip-text bg-[linear-gradient(90deg,#f59e0b_0%,#fb7185_30%,#60a5fa_60%,#34d399_100%)] bg-[length:220%_100%] animate-title-slide drop-shadow-lg">
           Melody Moods
         </h1>
 
@@ -165,14 +143,14 @@ function LandingLaptop() {
           <div className={`${glassContainer} hidden md:block w-[400px] p-2 `}>
             <div>
               {Object.entries(themes) // Convert object to array of key-value pairs
-                .filter(([key, theme]) => !theme.hidden) // Exclude hidden themes
+                .filter(([, theme]) => !theme.hidden) // Exclude hidden themes
                 .map(([key, theme]) => (
                   <a
                     key={key}
                     href={`/${key}`} // Navigate to the theme route
                     target="_blank" // Opens in a new tab
                     rel="noopener noreferrer" // Security best practice
-                    className="text-xs text-center font-medium bg-white text-gray-500 px-4 py-2 rounded-[1.5rem] inline-block m-1.5 cursor-pointer transition duration-300 hover:bg-[#fecc59] hover:text-white"
+                    className="text-xs text-center font-medium bg-white text-gray-500 px-4 py-2 rounded-[1.5rem] inline-block m-1.5 cursor-pointer transition duration-100 hover:bg-[#fecc59] hover:text-white"
                   >
                     {theme.audioTheme}
                   </a>
@@ -200,37 +178,74 @@ function LandingLaptop() {
                 your friends!
               </p>
 
-              <div
-                className=" mt-8 bg-white rounded-[2rem] flex items-center justify-between pl-5 pr-3 py-2 cursor-pointer"
+              <motion.button
+                type="button"
                 onClick={handleListenClick}
+                whileHover={{ scale: 1.01, y: -1 }}
+                whileTap={{ scale: 0.985 }}
+                animate={{
+                  boxShadow: showAudioPlayer
+                    ? "0 10px 24px rgba(254, 204, 89, 0.35)"
+                    : "0 2px 10px rgba(0,0,0,0.12)",
+                }}
+                transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                className="mt-8 bg-white rounded-[2rem] flex w-full items-center justify-between pl-5 pr-3 py-2 cursor-pointer"
               >
-                <span className="text-normal text-black">
-                  {showAudioPlayer ? "Minimise" : "Listen"}
-                </span>{" "}
-                <button
-                  className={`hover:bg-gray-300 bg-[#fecc59] ${button} h-8 w-8 `}
+                <motion.span
+                  className="text-normal text-black font-medium"
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  <img
+                  {showAudioPlayer ? "Minimise" : "Listen"}
+                </motion.span>
+                <motion.span
+                  className={`hover:bg-gray-300 bg-[#fecc59] ${button} h-8 w-8 `}
+                  whileHover={{ rotate: 8 }}
+                >
+                  <motion.img
                     src={arrow}
                     alt="Arrow"
-                    className={`w-4 h-4 transform ${
-                      showAudioPlayer ? "rotate-90" : ""
-                    }`}
+                    className="w-4 h-4"
+                    animate={{
+                      rotate: showAudioPlayer ? 90 : 0,
+                      x: showAudioPlayer ? 1 : 0,
+                    }}
+                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
                   />
-                </button>
-              </div>
+                </motion.span>
+              </motion.button>
             </div>
           </div>
 
           {/* Audio Player with Framer Motion Animation */}
-          <div className="min-w-[330px] min-h-[445px] flex justify-center z-50">
+          <motion.div
+            layout
+            className="min-w-[330px] min-h-[445px] flex justify-center z-50"
+          >
             <AnimatePresence>
               {showAudioPlayer && (
                 <motion.div
                   className=""
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                  exit={{ opacity: 0, y: 20, transition: { duration: 0.5 } }}
+                  initial={{
+                    opacity: 0,
+                    y: 24,
+                    scale: 0.96,
+                    filter: "blur(5px)",
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: 18,
+                    scale: 0.97,
+                    filter: "blur(4px)",
+                    transition: { duration: 0.26, ease: [0.4, 0, 1, 1] },
+                  }}
                 >
                   <AudioPlayerLanding
                     audioSrc="/Landing/AudioLanding.mp3"
@@ -243,7 +258,7 @@ function LandingLaptop() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </motion.div>
         </div>
         {/* Image2 at Bottom Right */}
         <img
@@ -275,6 +290,11 @@ function LandingLaptop() {
           }
           .animate-fade-enter { animation: fade-enter 1s ease-in-out forwards; }
           .animate-fade-exit { animation: fade-exit 1s ease-in-out forwards; }
+          @keyframes title-slide {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+          }
+          .animate-title-slide { animation: title-slide 2.6s linear infinite alternate; }
         `}
       </style>
     </div>

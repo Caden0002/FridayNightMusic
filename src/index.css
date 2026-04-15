@@ -12,3 +12,14 @@
     /*font-family: 'Poppins', sans-serif;*/
   }
 }
+
+/* Mobile app-style behavior: lock page scrolling */
+@media (max-width: 1023px) {
+  html,
+  body,
+  #root {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+}

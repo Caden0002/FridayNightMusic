@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AudioPlayerLanding from "./AudioPlayerLanding.jsx"; // Import the AudioPlayer component
 import Fireflies from "./LandingFireflies.jsx"; // Import Fireflies component
 import SocialButtons from "./LandingSocialButtons.jsx"; // Import SocialButtons component
 import LandingCodeInput from "./LandingCodeInput.jsx"; // Import "Have a Code?" input component
 
 import image from "/LandingBackground.gif";
-import home from "/LandingHomeButton.svg";
-import share from "/LandingShareButton.svg";
-import github from "/LandingGithub.svg";
-import instagram from "/LandingInstagramButton.svg";
-import android from "/LandingAndroidButton.svg";
-import apple from "/LandingAppStoreButton.svg";
 
 import { themes } from "./theme.js"; // Import all themes
 import { useNavigate } from "react-router-dom"; // Import React Router for navigation
 
 const glassContainer =
   "bg-white/50 backdrop-blur-sm border border-white rounded-[2rem]";
-const button =
-  "w-10 h-10 rounded-full flex items-center justify-center transition duration-300";
 
 const words = [
   { english: "Pixel", japanese: "画", romaji: "Ga" },
@@ -95,7 +87,7 @@ function LandingMobile() {
       {/* Content Container */}
       <div className="relative flex flex-col items-center justify-center w-full px-6 py-12 gap-6">
         {/* Title */}
-        <h1 className="text-2xl font-PS font-extrabold text-black drop-shadow-lg">
+        <h1 className="text-4xl mt-[-8px] font-PS font-extrabold text-transparent bg-clip-text bg-[linear-gradient(90deg,#f59e0b_0%,#fb7185_30%,#60a5fa_60%,#34d399_100%)] bg-[length:220%_100%] animate-title-slide-fast drop-shadow-lg">
           Melody Moods
         </h1>
 
@@ -124,7 +116,7 @@ function LandingMobile() {
         >
           <div className="flex flex-wrap justify-center gap-2 w-full">
             {Object.entries(themes) // Convert object to array of key-value pairs
-              .filter(([key, theme]) => !theme.hidden) // Exclude hidden themes
+              .filter(([, theme]) => !theme.hidden) // Exclude hidden themes
               .map(([key, theme]) => (
                 <a
                   key={key}
@@ -183,6 +175,13 @@ function LandingMobile() {
       75% { transform: translateY(-60vh) translateX(-10px); opacity: 0.4; }
       100% { transform: translateY(-100vh) translateX(0); opacity: 0; }
     }
+  `}
+        {`
+    @keyframes title-slide {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    .animate-title-slide-fast { animation: title-slide 2.6s linear infinite alternate; }
   `}
       </style>
     </div>
