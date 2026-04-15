@@ -9,14 +9,6 @@ function Hero() {
   const { themeName } = useParams();
   const theme = themes[themeName];
 
-  if (!theme) {
-    return (
-      <div className="h-screen flex justify-center items-center text-white">
-        <p>404 - Theme Not Found</p>
-      </div>
-    );
-  }
-
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [isBgLoaded, setIsBgLoaded] = useState(false);
   const [isAudioMetaLoaded, setIsAudioMetaLoaded] = useState(false);
@@ -28,6 +20,46 @@ function Hero() {
   }, []);
 
   useEffect(() => {
+    const media = window.matchMedia("(max-width: 1023px)");
+    const htmlEl = document.documentElement;
+    const bodyEl = document.body;
+
+    const previous = {
+      htmlOverflow: htmlEl.style.overflow,
+      bodyOverflow: bodyEl.style.overflow,
+      htmlOverscroll: htmlEl.style.overscrollBehavior,
+      bodyOverscroll: bodyEl.style.overscrollBehavior,
+    };
+
+    const applyLockState = () => {
+      if (media.matches) {
+        htmlEl.style.overflow = "hidden";
+        bodyEl.style.overflow = "hidden";
+        htmlEl.style.overscrollBehavior = "none";
+        bodyEl.style.overscrollBehavior = "none";
+      } else {
+        htmlEl.style.overflow = previous.htmlOverflow;
+        bodyEl.style.overflow = previous.bodyOverflow;
+        htmlEl.style.overscrollBehavior = previous.htmlOverscroll;
+        bodyEl.style.overscrollBehavior = previous.bodyOverscroll;
+      }
+    };
+
+    applyLockState();
+    media.addEventListener("change", applyLockState);
+
+    return () => {
+      media.removeEventListener("change", applyLockState);
+      htmlEl.style.overflow = previous.htmlOverflow;
+      bodyEl.style.overflow = previous.bodyOverflow;
+      htmlEl.style.overscrollBehavior = previous.htmlOverscroll;
+      bodyEl.style.overscrollBehavior = previous.bodyOverscroll;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!theme) return undefined;
+
     let isMounted = true;
     setIsBgLoaded(false);
     setIsAudioMetaLoaded(false);
@@ -54,7 +86,15 @@ function Hero() {
     return () => {
       isMounted = false;
     };
-  }, [theme.bgImage, theme.audioSrc]);
+  }, [theme]);
+
+  if (!theme) {
+    return (
+      <div className="h-screen flex justify-center items-center text-white">
+        <p>404 - Theme Not Found</p>
+      </div>
+    );
+  }
 
   const objectPosition =
     windowSize < 540 ? theme.objectPositionSm : theme.objectPositionLg;
