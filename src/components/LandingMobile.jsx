@@ -104,14 +104,14 @@ function LandingMobile() {
 
         {/* Animated Words */}
         <div className="mt-24 text-center text-5xl font-extrabold text-black tracking-wide">
-          <span className="text-[black]">
+          <span className="font-PS text-[black]">
             <span
               className={`transition-opacity duration-1000 ${
                 fadeOut ? "opacity-0" : "opacity-100"
               }`}
             >
               {words[wordIndex].english}{" "}
-              <span className="text-3xl font-normal">
+              <span className="text-2xl font-normal">
                 {words[wordIndex].japanese}
               </span>
             </span>

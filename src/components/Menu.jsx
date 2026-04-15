@@ -33,9 +33,7 @@ function Menu() {
       setErrorMessage("");
       closeMenu();
     } else {
-      setErrorMessage(
-        "Sorry love, I guess Caden didn't make one for you ｡°(°.◜ᯅ◝°)°｡"
-      );
+      setErrorMessage("Code not found");
     }
   };
 

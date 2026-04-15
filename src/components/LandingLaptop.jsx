@@ -142,7 +142,7 @@ function LandingLaptop() {
         <div className="absolute top-24 left-32 text-7xl xl:text-9xl font-extrabold text-black tracking-wide ">
           Immerse in
           <br />
-          <span className="text-[#fecc59] relative inline-block">
+          <span className="font-PS text-[#fecc59] relative inline-block">
             <span
               key={words[wordIndex].english}
               className={`absoluteinset-0 ${
@@ -150,7 +150,7 @@ function LandingLaptop() {
               }`}
             >
               {words[wordIndex].english}{" "}
-              <span className="text-4xl  top-6  font-normal">
+              <span className="text-3xl  top-6  font-normal">
                 {words[wordIndex].japanese}
               </span>
             </span>
