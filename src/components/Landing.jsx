@@ -81,7 +81,7 @@ function Landing() {
         <div className="flex flex-col items-center gap-4">
           <div className="w-10 h-10 rounded-full border-4 border-white/30 border-t-white animate-spin" />
           <p className="font-PS text-sm tracking-wide">
-            Loading landing... {progress}%
+            Loading music... {progress}%
           </p>
         </div>
       </div>
